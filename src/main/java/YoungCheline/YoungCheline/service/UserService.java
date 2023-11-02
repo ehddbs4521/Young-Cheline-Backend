@@ -6,8 +6,11 @@ import YoungCheline.YoungCheline.entity.User;
 import YoungCheline.YoungCheline.repository.UserRepository;
 import YoungCheline.YoungCheline.util.EmailUtil;
 import YoungCheline.YoungCheline.util.OtpUtil;
+import YoungCheline.YoungCheline.util.TemporaryPwUtil;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -24,6 +27,8 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private TokenService tokenService;
+    @Autowired
+    private TemporaryPwUtil temporaryPwUtil;
 
     public String register(RegisterDto registerDto) {
         String otp = otpUtil.generateOtp();
@@ -39,7 +44,7 @@ public class UserService {
         user.setOtp(otp);
         user.setOtpGeneratedTime(LocalDateTime.now());
         userRepository.save(user);
-        return "회원가입 성공했습니다";
+        return "이름,이메일,비밀번호 입력 완료";
     }
 
     public boolean checkEmailNotDuplicate(String email) {
@@ -49,7 +54,7 @@ public class UserService {
         return false;
     }
 
-    public String verifyAccount(String email, String otp) {
+    public String varifyAccount(String email, String otp) {
 
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("이메일을 찾을 수 없습니다: " + email));
@@ -83,11 +88,37 @@ public class UserService {
         User user = userRepository.findByEmail(loginDto.getEmail())
                 .orElseThrow(
                         () -> new RuntimeException("이메일을 찾을 수 없습니다: " + loginDto.getEmail()));
-        if (!loginDto.getPassword().equals(user.getPassword())) {
+        if (!loginDto.getPassword().equals(user.getPassword()) || !loginDto.getPassword().equals(user.getTempPw())) {
             return "패스워드가 틀립니다";
         } else if (!user.isActive()) {
             return "인증이 안된 회원입니다";
         }
         return "성공적으로 로그인했습니다";
+    }
+
+    public String findPW(String email) {
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(
+                        () -> new RuntimeException("이메일을 찾을 수 없습니다: " + email)
+                );
+        return user.getPassword();
+    }
+
+    public String generateTempPw(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(
+                        () -> new RuntimeException("이메일을 찾을 수 없습니다: " + email)
+                );
+
+        String tempPw = temporaryPwUtil.createTempPw();
+        try {
+            emailUtil.sendTempPwEmail(email, tempPw);
+            user.setTempPw(tempPw);
+            userRepository.save(user);
+        } catch (MessagingException e) {
+            throw new RuntimeException("임시 비밀번호 전송에 문제가 생겼습니다. 다시 보내주세요");
+        }
+        return "임시 비밀번호 전송 완료";
     }
 }

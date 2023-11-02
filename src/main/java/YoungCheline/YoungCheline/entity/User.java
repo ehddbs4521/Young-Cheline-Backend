@@ -20,4 +20,5 @@ public class User {
     private String otp;
     private String token;
     private LocalDateTime OtpGeneratedTime;
+    private String tempPw;
 }
