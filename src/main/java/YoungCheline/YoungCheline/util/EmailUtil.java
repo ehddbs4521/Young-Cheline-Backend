@@ -13,16 +13,16 @@ public class EmailUtil {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    public void sendOtpEmail(String email, String otp) throws MessagingException {
+    public void sendEmail(String email) throws MessagingException {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage,"UTF-8");
         mimeMessageHelper.setTo(email);
         mimeMessageHelper.setSubject("회원가입 인증");
         mimeMessageHelper.setText("""
                 <div>
-                  <a href="http://localhost:8080/verify-account?email=%s&otp=%s" target="_blank">링크를 누르세요</a>
+                  <a href="http://localhost:8080/register/varify-email?email=%s" target="_blank">링크를 누르세요</a>
                 </div>
-                """.formatted(email, otp), true);
+                """.formatted(email), true);
 
         javaMailSender.send(mimeMessage);
     }

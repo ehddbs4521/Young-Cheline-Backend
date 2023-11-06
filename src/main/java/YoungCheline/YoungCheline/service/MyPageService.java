@@ -11,7 +11,7 @@ public class MyPageService {
 
     @Autowired
     UserRepository userRepository;
-    public String changePw(LoginDto loginDto) {
+    /*public String changePw(LoginDto loginDto) {
         User user = userRepository.findByEmail(loginDto.getEmail())
                 .orElseThrow(
                         () -> new RuntimeException("이메일을 찾을 수 없습니다: " + loginDto.getEmail())
@@ -23,6 +23,6 @@ public class MyPageService {
             userRepository.save(user);
         }
         return "비밀번호 변경 완료";
-    }
+    }*/
 
 }

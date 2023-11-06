@@ -1,24 +1,37 @@
 package YoungCheline.YoungCheline.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import YoungCheline.YoungCheline.role.Role;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 
 import java.time.LocalDateTime;
 
+
 @Entity
 @Data
-public class User {
+@NoArgsConstructor
+@AllArgsConstructor
+public class User{
 
     @Id
-    private String email;
-    private String name;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    private String userName;
     private String password;
+    private String email;
+    @Enumerated(EnumType.STRING)
+    private Role role;
     private boolean active;
-    private String otp;
-    private String token;
-    private LocalDateTime OtpGeneratedTime;
     private String tempPw;
+    private LocalDateTime time;
+    public void authorizeUser() {
+        this.role = Role.USER;
+    }
+
+
+
 }

@@ -21,7 +21,7 @@ public class MyPageController {
     @Autowired
     MyPageService myPageService;
 
-    @PostMapping("/change-pw")
+    /*@PostMapping("/change-pw")
     public ResponseEntity<String> changePw(@Valid @RequestBody LoginDto loginDto, Errors error) {
         if (error.hasErrors()) {
             log.info("error:{}", error);
@@ -33,5 +33,5 @@ public class MyPageController {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
         }
-    }
+    }*/
 }
