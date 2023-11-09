@@ -1,7 +1,7 @@
 package YoungCheline.YoungCheline.config;
 
 import YoungCheline.YoungCheline.filter.JwtFilter;
-import YoungCheline.YoungCheline.service.UserService;
+import YoungCheline.YoungCheline.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class AuthenticationConfig {
 
-    private final UserService userService;
+    private final UserServiceImpl userServiceImpl;
     @Value("${secretkey}")
     private String secretKey;
     @Bean
@@ -37,7 +37,7 @@ public class AuthenticationConfig {
                         sessionManagement ->
                                 sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .addFilterBefore(new JwtFilter(userService, secretKey), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtFilter(userServiceImpl, secretKey), UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 }

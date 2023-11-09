@@ -1,6 +1,6 @@
 package YoungCheline.YoungCheline.filter;
 
-import YoungCheline.YoungCheline.service.UserService;
+import YoungCheline.YoungCheline.service.UserServiceImpl;
 import YoungCheline.YoungCheline.util.JwtTokenUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -23,7 +23,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
 
-    private final UserService userService;
+    private final UserServiceImpl userServiceImpl;
     @Value("${secretkey}")
     private final String secretKey;
 
