@@ -4,10 +4,12 @@ import jakarta.mail.MessagingException;
 
 public interface UserService {
 
-    String register(String userName,String password,String email);
+    boolean register(String userName, String password, String email);
 
-    String sendEmail(String email) throws MessagingException;
-    String validateEmail(String email);
-    String login(String userName, String password);
-    String findPW(String email) throws MessagingException;
+    boolean findPwByEmail(String email) throws MessagingException;
+    boolean validateEmail(String email);
+    boolean login(String userName, String password);
+    boolean findID(String email);
+
+    boolean validateDuplicateId(String id);
 }

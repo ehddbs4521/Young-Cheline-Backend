@@ -40,4 +40,5 @@ public class EmailUtil {
 
         javaMailSender.send(mimeMessage);
     }
+
 }

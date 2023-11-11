@@ -6,5 +6,5 @@ import YoungCheline.YoungCheline.repository.UserRepository;
 
 public interface MyPageService {
 
-    public String changePw(LoginDto loginDto);
+    boolean changePw(String userName,String currentPw,String changePw);
 }

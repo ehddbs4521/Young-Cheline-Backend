@@ -1,32 +1,41 @@
 package YoungCheline.YoungCheline.service;
 
 import YoungCheline.YoungCheline.dto.LoginDto;
+import YoungCheline.YoungCheline.entity.User;
+import YoungCheline.YoungCheline.exception.AppException;
+import YoungCheline.YoungCheline.exception.ErrorCode;
 import YoungCheline.YoungCheline.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
+@RequiredArgsConstructor
 public class MyPageServiceImpl implements MyPageService{
 
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final BCryptPasswordEncoder encoder;
 
-    @Override
-    public String changePw(LoginDto loginDto) {
-        return null;
-    }
-    /*public String changePw(LoginDto loginDto) {
-        User user = userRepository.findByEmail(loginDto.getEmail())
+    public boolean changePw(String userName,String currentPw,String changePw) {
+
+        User user = userRepository.findByUserName(userName)
                 .orElseThrow(
-                        () -> new RuntimeException("이메일을 찾을 수 없습니다: " + loginDto.getEmail())
+                        () -> new AppException(ErrorCode.BAD_REQUEST,"사용자를 찾을 수 없습니다.")
                 );
-        if (user.getPassword().equals(loginDto.getPassword())) {
-            return "기존 비밀번호와 동일합니다";
-        } else {
-            user.setPassword(loginDto.getPassword());
-            userRepository.save(user);
+
+        if (changePw.equals(currentPw)) {
+            return false;
         }
-        return "비밀번호 변경 완료";
-    }*/
+
+         else {
+            user.setPassword(encoder.encode(changePw));
+            userRepository.save(user);
+            return true;
+        }
+
+    }
 
 }

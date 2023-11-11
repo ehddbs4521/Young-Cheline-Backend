@@ -31,7 +31,7 @@ public class AuthenticationConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> {
                     requests.requestMatchers("/register/**", "/login/**").permitAll();
-                    requests.requestMatchers(HttpMethod.POST, "/reviews").authenticated();
+                    requests.requestMatchers(HttpMethod.POST, "/reviews","/mypage/**").authenticated();
                 })
                 .sessionManagement(
                         sessionManagement ->
