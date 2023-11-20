@@ -2,10 +2,9 @@ package YoungCheline.YoungCheline.service;
 
 import YoungCheline.YoungCheline.dto.JwtDto;
 import YoungCheline.YoungCheline.dto.RegisterDto;
+import YoungCheline.YoungCheline.entity.Profile;
 import YoungCheline.YoungCheline.entity.User;
-import YoungCheline.YoungCheline.error.UserError;
-import YoungCheline.YoungCheline.exception.AppException;
-import YoungCheline.YoungCheline.exception.ErrorCode;
+import YoungCheline.YoungCheline.repository.ImageRepository;
 import YoungCheline.YoungCheline.repository.UserRepository;
 import YoungCheline.YoungCheline.util.EmailUtil;
 import YoungCheline.YoungCheline.util.JwtTokenUtil;
@@ -14,8 +13,6 @@ import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +26,7 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService{
 
     private final EmailUtil emailUtil;
+    private final ImageRepository imageRepository;
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder encoder;
     private final TemporaryPwUtil temporaryPwUtil;
@@ -44,12 +42,15 @@ public class UserServiceImpl implements UserService{
             Optional<User> userOpt = userRepository.findByEmail(email);
             User user = userOpt.get();
             if (user.getUserName()==null||user.getUserName()!=userName) {
+                Profile profile = new Profile();
                 user.setUserName(userName);
                 user.setPassword(encoder.encode(password));
                 user.setEmail(email);
+                profile.setUserName(userName);
                 registerDto.setUserName(userName);
                 registerDto.setPassword(password);
                 registerDto.setEmail(email);
+                imageRepository.save(profile);
                 userRepository.save(user);
                 return true;
             }

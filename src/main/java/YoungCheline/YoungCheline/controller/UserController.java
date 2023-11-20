@@ -7,7 +7,6 @@ import YoungCheline.YoungCheline.dto.RegisterDto;
 import YoungCheline.YoungCheline.entity.User;
 import YoungCheline.YoungCheline.error.RegisterError;
 import YoungCheline.YoungCheline.error.UserError;
-import YoungCheline.YoungCheline.repository.UserRepository;
 import YoungCheline.YoungCheline.service.UserServiceImpl;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
@@ -15,7 +14,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
@@ -24,6 +25,7 @@ public class UserController {
 
     final private UserServiceImpl userServiceImpl;
     final private JwtDto jwtDto;
+
     @PostMapping("/register")
     public ResponseEntity<Object> register(@Valid @RequestBody RegisterDto registerDto) {
         if (userServiceImpl.validateDuplicateId(registerDto.getUserName())) {

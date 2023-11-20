@@ -3,8 +3,10 @@ package YoungCheline.YoungCheline.service;
 import YoungCheline.YoungCheline.dto.LoginDto;
 import YoungCheline.YoungCheline.repository.UserRepository;
 
+import java.util.Map;
+
 
 public interface MyPageService {
 
-    boolean changePw(String userName,String currentPw,String changePw);
+    Map<String,String> changePw(String userName,String changePw);
 }

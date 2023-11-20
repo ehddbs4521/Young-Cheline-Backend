@@ -30,8 +30,9 @@ public class AuthenticationConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> {
-                    requests.requestMatchers("/register/**", "/login/**").permitAll();
-                    requests.requestMatchers(HttpMethod.POST, "/reviews","/mypage/**").authenticated();
+                    requests.requestMatchers("/register/**","/login/**").permitAll();
+                    requests.requestMatchers(HttpMethod.POST, "/reviews","/mypage/**","/evaluate/**").authenticated();
+                    requests.requestMatchers(HttpMethod.GET,"/evaluate/**").authenticated();
                 })
                 .sessionManagement(
                         sessionManagement ->
