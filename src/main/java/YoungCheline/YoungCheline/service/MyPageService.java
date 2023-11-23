@@ -8,5 +8,5 @@ import java.util.Map;
 
 public interface MyPageService {
 
-    Map<String,String> changePw(String userName,String changePw);
+    Map<String, String> changePw(String userName, String changePw);
 }

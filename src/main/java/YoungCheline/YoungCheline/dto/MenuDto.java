@@ -12,8 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MenuDto {
-    private String restaurantId;
-    private List<String> menu;
-    private List<String> url;
-    private List<String> menuId;
+    private Integer menuId;
+    private String menuName;
 }

@@ -45,7 +45,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RegisterError("입력하신 이메일로 회원가입이 되있습니다."));
     }
 
-    @PostMapping("/register/varify-email")
+    @PostMapping("/register/verify-email")
     public ResponseEntity<Object> validateEmail(@RequestBody EmailDto emailDto) throws MessagingException {
         if (userServiceImpl.validateEmail(emailDto.getEmail())) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

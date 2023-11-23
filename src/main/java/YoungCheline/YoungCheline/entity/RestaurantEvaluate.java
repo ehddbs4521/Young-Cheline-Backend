@@ -12,11 +12,22 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Menu {
+public class RestaurantEvaluate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer menuId;
-    private String restaurantId;
-    private String menuName;
-    private String url;
+    Integer id;
+    Integer menuId;
+    String restaurantId;
+    String menuName;
+    String taste;
+    String cleaning;
+    String service;
+    String price;
+    String plating;
+    String couple;
+    String family;
+    String solo;
+    String drink;
+    String friend;
+    String url;
 }

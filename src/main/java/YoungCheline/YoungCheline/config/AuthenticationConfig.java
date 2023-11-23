@@ -32,7 +32,7 @@ public class AuthenticationConfig {
                 .authorizeHttpRequests(requests -> {
                     requests.requestMatchers("/register/**","/login/**").permitAll();
                     requests.requestMatchers(HttpMethod.POST, "/reviews","/mypage/**","/evaluate/**").authenticated();
-                    requests.requestMatchers(HttpMethod.GET,"/evaluate/**").authenticated();
+                    requests.requestMatchers(HttpMethod.GET,"/mypage/**","/evaluate/**").authenticated();
                 })
                 .sessionManagement(
                         sessionManagement ->

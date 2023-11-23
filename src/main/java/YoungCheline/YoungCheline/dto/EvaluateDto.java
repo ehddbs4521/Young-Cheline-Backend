@@ -6,13 +6,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddMenuDto {
-
-    private MultipartFile file;
-    private String id;
-    private String menu;
+public class EvaluateDto {
+    private String restaurantId;
+    private String taste;
+    private List<String> mood;
+    private String price;
+    private String cleaning;
+    private String plating;
+    private String service;
 }

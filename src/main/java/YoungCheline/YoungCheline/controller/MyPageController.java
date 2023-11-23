@@ -1,9 +1,9 @@
 package YoungCheline.YoungCheline.controller;
 
+import YoungCheline.YoungCheline.dto.RestaurantEvaluateDto;
 import YoungCheline.YoungCheline.error.MyPageError;
 import YoungCheline.YoungCheline.service.ImageServiceImpl;
 import YoungCheline.YoungCheline.service.MyPageServiceImpl;
-import com.amazonaws.services.s3.AmazonS3Client;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,17 +29,18 @@ public class MyPageController {
     final MyPageServiceImpl myPageServiceImpl;
 
     @PostMapping("/change-pw")
-    public ResponseEntity<Object> changePw(@RequestBody Map<String,String> changePwMap, Authentication authentication) {
+    public ResponseEntity<Object> changePw(@RequestBody Map<String, String> changePwMap, Authentication authentication) {
         String changePw = changePwMap.get("changePw");
-        String userName=authentication.getName();
-        if (myPageServiceImpl.isSamePwEach(userName,changePw)) {
+        String userName = authentication.getName();
+        if (myPageServiceImpl.isSamePwEach(userName, changePw)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MyPageError("기존 비밀번호와 동일합니다"));
         }
         Map<String, String> pwMap = myPageServiceImpl.changePw(userName, changePw);
         return ResponseEntity.ok().body(pwMap);
     }
+
     @PostMapping("/profile-upload")
-    public ResponseEntity<Map<String, URL>> uploadFile(@RequestParam("file") MultipartFile file,Authentication authentication) {
+    public ResponseEntity<Map<String, URL>> uploadFile(@RequestParam("file") MultipartFile file, Authentication authentication) {
         try {
             Map<String, URL> profile = imageServiceImpl.uploadProfile(file, authentication.getName(), bucket);
             return ResponseEntity.ok().body(profile);
@@ -48,4 +49,11 @@ public class MyPageController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @GetMapping("/evaluate-list")
+    public ResponseEntity<RestaurantEvaluateDto[]> showEvaluateList(@RequestParam(defaultValue = "0") Integer number, @RequestParam("size") Integer size, Authentication authentication) {
+        RestaurantEvaluateDto[] restaurantEvaluateDtos = myPageServiceImpl.showEvaluateList(size, number, authentication.getName());
+        return ResponseEntity.ok().body(restaurantEvaluateDtos);
+    }
+
 }

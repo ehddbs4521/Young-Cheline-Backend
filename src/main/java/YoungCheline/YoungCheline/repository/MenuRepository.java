@@ -12,8 +12,9 @@ import java.util.Optional;
 @Repository
 public interface MenuRepository extends JpaRepository<Menu, Long> {
     List<Menu> findByRestaurantId(String restaurantId);
-    @Query("SELECT e FROM Menu e WHERE e.restaurantId = :restaurantId AND e.menu = :menu")
-    Optional<Menu> findByRestaurantIdAndMenuName(@Param("restaurantId") String restaurantId, @Param("menu") String menu);
+    @Query("SELECT e FROM Menu e WHERE e.restaurantId = :restaurantId AND e.menuName = :menuName")
+    Optional<Menu> findByRestaurantIdAndMenuName(@Param("restaurantId") String restaurantId, @Param("menuName") String menu);
+    @Query("SELECT e FROM Menu e WHERE e.restaurantId = :restaurantId AND e.menuId = :menuId")
+    Optional<Menu> findByRestaurantIdAndMenuId(@Param("restaurantId") String restaurantId, @Param("menuId") Integer menu);
 
-    Optional<Menu> findByMenuId(String uuid);
 }

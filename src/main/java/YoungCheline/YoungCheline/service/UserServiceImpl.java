@@ -23,7 +23,7 @@ import java.util.Optional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     private final EmailUtil emailUtil;
     private final ImageRepository imageRepository;
@@ -34,14 +34,14 @@ public class UserServiceImpl implements UserService{
     private final RegisterDto registerDto;
     @Value("${secretkey}")
     private String secretKey;
-    private Long expiredMs=1000*60*60*24*50L;
+    private Long expiredMs = 1000 * 60 * 60 * 24 * 50L;
 
 
     public boolean register(String userName, String password, String email) {
         if (checkUserByEmail(email)) {
             Optional<User> userOpt = userRepository.findByEmail(email);
             User user = userOpt.get();
-            if (user.getUserName()==null||user.getUserName()!=userName) {
+            if (user.getUserName() == null || user.getUserName() != userName) {
                 Profile profile = new Profile();
                 user.setUserName(userName);
                 user.setPassword(encoder.encode(password));
@@ -77,8 +77,7 @@ public class UserServiceImpl implements UserService{
         if (checkUserByEmail(email)) {
             Optional<User> userOpt = userRepository.findByEmail(email);
             User user = userOpt.get();
-            if (Duration.between(user.getTime(),
-                    LocalDateTime.now()).getSeconds() < (1 * 60 * 60 * 10)) {
+            if (Duration.between(user.getTime(), LocalDateTime.now()).getSeconds() < (1 * 60 * 60 * 10)) {
                 user.setActive(true);
                 userRepository.save(user);
                 return true;
@@ -97,7 +96,7 @@ public class UserServiceImpl implements UserService{
                 System.out.println(encoder.matches(password, user.getPassword()));
                 System.out.println(encoder.matches(password, user.getTempPw()));
                 jwtDto.setToken(JwtTokenUtil.createJwt(user.getUserName(), secretKey, expiredMs));
-                log.info("jwt token:{}",jwtDto.getToken());
+                log.info("jwt token:{}", jwtDto.getToken());
                 return true;
             }
             return false;
@@ -136,6 +135,7 @@ public class UserServiceImpl implements UserService{
 
         return false;
     }
+
     public boolean findID(String email) {
         if (checkUserByEmail(email)) {
             Optional<User> user = userRepository.findByEmail(email);
