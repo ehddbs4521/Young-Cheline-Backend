@@ -15,7 +15,7 @@ public class Evaluate {
     @Id
     Key key;
     String restaurantId;
-    String taste;
+    String flavor;
     String price;
     String couple;
     String family;
@@ -26,5 +26,5 @@ public class Evaluate {
     String plating;
     String service;
     String url;
-    Integer number;
+    Integer id;
 }

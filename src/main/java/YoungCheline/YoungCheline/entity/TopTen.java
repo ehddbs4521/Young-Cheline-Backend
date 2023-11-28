@@ -17,7 +17,7 @@ public class TopTen {
     Integer menuId;
     String restaurantId;
     String menuName;
-    String taste;
+    String flavor;
     String cleaning;
     String service;
     String price;

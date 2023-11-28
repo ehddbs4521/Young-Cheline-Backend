@@ -70,7 +70,7 @@ public class EvaluateServiceImpl implements EvaluateService {
     public void evaluateMenu(String restaurantId, Integer menuId, String taste, String price, List<String> mood, String cleaning, String plating, String service, MultipartFile file, String userName, String time, String bucket) throws IOException {
 
         Evaluate evaluate = new Evaluate();
-        List<Integer> num = evaluateRepository.findFirstByKey_UserNameOrderByNumberDesc(userName).stream().map(Evaluate::getNumber).collect(Collectors.toList());
+        List<Integer> num = evaluateRepository.findFirstByKey_UserNameOrderByIdDesc(userName).stream().map(Evaluate::getId).collect(Collectors.toList());
         int number = num.get(0);
         key.setMenuId(menuId);
         key.setTime(time);
@@ -82,7 +82,7 @@ public class EvaluateServiceImpl implements EvaluateService {
 
         evaluate.setKey(key);
         evaluate.setRestaurantId(restaurantId);
-        evaluate.setTaste(taste);
+        evaluate.setFlavor(taste);
         evaluate.setPrice(price);
         evaluate.setCleaning(cleaning);
         evaluate.setPlating(plating);
@@ -105,7 +105,7 @@ public class EvaluateServiceImpl implements EvaluateService {
                 evaluate.setFriend("4");
             }
         }
-        evaluate.setNumber(number + 1);
+        evaluate.setId(number + 1);
 
         evaluateRepository.save(evaluate);
 

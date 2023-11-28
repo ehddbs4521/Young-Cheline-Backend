@@ -27,6 +27,8 @@ public interface RestaurantEvaluateRepository extends JpaRepository<RestaurantEv
 
     Optional<RestaurantEvaluate> findFirstByMenuNameContainingOrderByIdDesc(String menuName);
 
+    Optional<RestaurantEvaluate> findByMenuId(Integer menuId);
+
     List<RestaurantEvaluate> findByMenuNameContaining(String menuName);
 
     List<RestaurantEvaluate> findAll(Specification<RestaurantEvaluate> specification);

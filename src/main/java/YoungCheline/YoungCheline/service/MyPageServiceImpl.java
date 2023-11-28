@@ -60,7 +60,7 @@ public class MyPageServiceImpl implements MyPageService {
 
     public RestaurantEvaluateDto[] showEvaluateList(int size, int lastNumber, String userName) {
 
-        Integer number = evaluateRepository.findFirstByKey_UserNameOrderByNumberDesc(userName).get().getNumber();
+        Integer number = evaluateRepository.findFirstByKey_UserNameOrderByIdDesc(userName).get().getId();
 
         if (lastNumber == 0) {
             lastNumber = number + 1;
@@ -70,7 +70,7 @@ public class MyPageServiceImpl implements MyPageService {
         }
 
         PageRequest pageRequest = PageRequest.of(0, size);
-        Page<Evaluate> page = evaluateRepository.findByKey_UserNameAndNumberIsLessThanOrderByNumberDesc(userName, lastNumber, pageRequest);
+        Page<Evaluate> page = evaluateRepository.findByKey_UserNameAndIdIsLessThanOrderByIdDesc(userName, lastNumber, pageRequest);
         List<Evaluate> content = page.getContent();
         RestaurantEvaluateDto[] restaurantEvaluateDto = new RestaurantEvaluateDto[size];
         ResultDto resultDto = new ResultDto();
@@ -91,7 +91,7 @@ public class MyPageServiceImpl implements MyPageService {
             restaurantEvaluateDto[i].setMenuId(content.get(i).getKey().getMenuId());
             restaurantEvaluateDto[i].setMenuName(menuName);
 
-            resultDto.setFlavor(content.get(i).getTaste());
+            resultDto.setFlavor(content.get(i).getFlavor());
             resultDto.setPrice(content.get(i).getPrice());
             resultDto.setCleanliness(content.get(i).getCleaning());
             resultDto.setPlating(content.get(i).getPlating());
@@ -100,7 +100,7 @@ public class MyPageServiceImpl implements MyPageService {
             restaurantEvaluateDto[i].setEvaluate(resultDto);
             restaurantEvaluateDto[i].setMood(mood);
             restaurantEvaluateDto[i].setUrl(content.get(i).getUrl());
-            restaurantEvaluateDto[i].setId(content.get(i).getNumber());
+            restaurantEvaluateDto[i].setId(content.get(i).getId());
         }
 
         return restaurantEvaluateDto;
@@ -141,7 +141,7 @@ public class MyPageServiceImpl implements MyPageService {
             List<String> mood = checkMood(menu.get(i).getCouple(), menu.get(i).getFamily(), menu.get(i).getSolo(), menu.get(i).getFriend(), menu.get(i).getDrink());
             topTen[i].setMood(mood);
 
-            resultDto.setFlavor(menu.get(i).getTaste());
+            resultDto.setFlavor(menu.get(i).getFlavor());
             resultDto.setPrice(menu.get(i).getPrice());
             resultDto.setCleanliness(menu.get(i).getCleaning());
             resultDto.setPlating(menu.get(i).getPlating());
@@ -183,7 +183,7 @@ public class MyPageServiceImpl implements MyPageService {
         topTen.setMenuId(topTenDto.getMenuId());
         topTen.setRestaurantId(topTenDto.getRestaurantId());
         topTen.setMenuName(topTenDto.getMenuName());
-        topTen.setTaste(topTenDto.getEvaluate().getFlavor());
+        topTen.setFlavor(topTenDto.getEvaluate().getFlavor());
         topTen.setCleaning(topTenDto.getEvaluate().getCleanliness());
         topTen.setService(topTenDto.getEvaluate().getService());
         topTen.setPrice(topTenDto.getEvaluate().getPrice());
