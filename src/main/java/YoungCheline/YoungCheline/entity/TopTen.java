@@ -1,23 +1,23 @@
 package YoungCheline.YoungCheline.entity;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RestaurantEvaluate {
+@Entity
+public class TopTen {
+
     @Id
+    TopTenKey topTenKey;
     Integer menuId;
     String restaurantId;
     String menuName;
-    String flavor;
+    String taste;
     String cleaning;
     String service;
     String price;
@@ -28,5 +28,5 @@ public class RestaurantEvaluate {
     String drink;
     String friend;
     String url;
-    Integer id;
+
 }

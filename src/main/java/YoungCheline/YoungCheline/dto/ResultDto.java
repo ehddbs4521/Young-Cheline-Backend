@@ -7,9 +7,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class MenuDto {
-    private Integer menuId;
-    private String menuName;
+@NoArgsConstructor
+public class ResultDto {
+    private String flavor;
+    private String cleanliness;
+    private String service;
+    private String price;
+    private String plating;
 }

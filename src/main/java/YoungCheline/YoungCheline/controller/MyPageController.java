@@ -1,6 +1,7 @@
 package YoungCheline.YoungCheline.controller;
 
 import YoungCheline.YoungCheline.dto.RestaurantEvaluateDto;
+import YoungCheline.YoungCheline.dto.TopTenDto;
 import YoungCheline.YoungCheline.error.MyPageError;
 import YoungCheline.YoungCheline.service.ImageServiceImpl;
 import YoungCheline.YoungCheline.service.MyPageServiceImpl;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
@@ -51,9 +53,32 @@ public class MyPageController {
     }
 
     @GetMapping("/evaluate-list")
-    public ResponseEntity<RestaurantEvaluateDto[]> showEvaluateList(@RequestParam(defaultValue = "0") Integer number, @RequestParam("size") Integer size, Authentication authentication) {
-        RestaurantEvaluateDto[] restaurantEvaluateDtos = myPageServiceImpl.showEvaluateList(size, number, authentication.getName());
+    public ResponseEntity<RestaurantEvaluateDto[]> showEvaluateList(@RequestParam(defaultValue = "0") Integer id, @RequestParam("size") Integer size, Authentication authentication) {
+        RestaurantEvaluateDto[] restaurantEvaluateDtos = myPageServiceImpl.showEvaluateList(size, id, authentication.getName());
         return ResponseEntity.ok().body(restaurantEvaluateDtos);
+    }
+
+    @GetMapping("/top10-list")
+    public ResponseEntity<TopTenDto[]> showTop10List(Authentication authentication) {
+        TopTenDto[] topTenDtos = myPageServiceImpl.showTop10List(authentication.getName());
+        return ResponseEntity.ok().body(topTenDtos);
+    }
+
+    @PostMapping("/top10-list")
+    public ResponseEntity<Object> sendTop10List(@RequestBody TopTenDto[] topTenDto, Authentication authentication) {
+        Map<String, String> error = new HashMap<>();
+        error.put("error", "같은 메뉴 중복");
+        boolean result = myPageServiceImpl.sendTop10List(topTenDto, authentication.getName());
+        if (result == true) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+    }
+
+    @PostMapping("/withdraw")
+    public ResponseEntity<Object> withdraw(Authentication authentication) {
+        myPageServiceImpl.withdraw(authentication.getName());
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

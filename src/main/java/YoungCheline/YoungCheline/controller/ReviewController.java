@@ -11,6 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class ReviewController {
     @PostMapping
     public ResponseEntity<String> writeReview(Authentication authentication) {
-        return ResponseEntity.ok().body(authentication.getName()+"님의 리뷰 등록 완료");
+        return ResponseEntity.ok().body(authentication.getName() + "님의 리뷰 등록 완료");
     }
 }

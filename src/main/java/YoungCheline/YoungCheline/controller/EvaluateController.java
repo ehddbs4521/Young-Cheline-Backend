@@ -1,8 +1,6 @@
 package YoungCheline.YoungCheline.controller;
 
-import YoungCheline.YoungCheline.dto.EvaluateDto;
 import YoungCheline.YoungCheline.dto.KakaoMapDto;
-import YoungCheline.YoungCheline.dto.MenuDto;
 import YoungCheline.YoungCheline.service.EvaluateServiceImpl;
 import YoungCheline.YoungCheline.service.ImageServiceImpl;
 import lombok.RequiredArgsConstructor;

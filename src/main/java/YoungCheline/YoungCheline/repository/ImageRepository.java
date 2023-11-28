@@ -9,4 +9,6 @@ import java.util.Optional;
 @Repository
 public interface ImageRepository extends JpaRepository<Profile, Long> {
     Optional<Profile> findByUserName(String user);
+
+    void deleteByUserName(String userName);
 }

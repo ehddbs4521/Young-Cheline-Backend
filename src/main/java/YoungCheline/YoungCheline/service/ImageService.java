@@ -10,5 +10,4 @@ public interface ImageService {
 
     Map<String, URL> uploadProfile(MultipartFile file, String userName,String bucket) throws IOException;
     Map<String, String> uploadMenu(MultipartFile file,String bucket,String restaurantId,String menu) throws IOException;
-
 }

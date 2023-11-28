@@ -35,6 +35,8 @@ public class UserServiceImpl implements UserService {
     @Value("${secretkey}")
     private String secretKey;
     private Long expiredMs = 1000 * 60 * 60 * 24 * 50L;
+    @Value("default.profile")
+    private String defaultProfile;
 
 
     public boolean register(String userName, String password, String email) {
@@ -43,6 +45,8 @@ public class UserServiceImpl implements UserService {
             User user = userOpt.get();
             if (user.getUserName() == null || user.getUserName() != userName) {
                 Profile profile = new Profile();
+                profile.setUserName(userName);
+                profile.setUrl(defaultProfile);
                 user.setUserName(userName);
                 user.setPassword(encoder.encode(password));
                 user.setEmail(email);

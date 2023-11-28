@@ -22,6 +22,7 @@ public class AuthenticationConfig {
     private final UserServiceImpl userServiceImpl;
     @Value("${secretkey}")
     private String secretKey;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
@@ -30,9 +31,9 @@ public class AuthenticationConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> {
-                    requests.requestMatchers("/register/**","/login/**").permitAll();
-                    requests.requestMatchers(HttpMethod.POST, "/reviews","/mypage/**","/evaluate/**").authenticated();
-                    requests.requestMatchers(HttpMethod.GET,"/mypage/**","/evaluate/**").authenticated();
+                    requests.requestMatchers("/register/**", "/login/**").permitAll();
+                    requests.requestMatchers(HttpMethod.POST,"/home/**", "/reviews", "/mypage/**", "/evaluate/**").authenticated();
+                    requests.requestMatchers(HttpMethod.GET, "/home/**","/mypage/**", "/evaluate/**").authenticated();
                 })
                 .sessionManagement(
                         sessionManagement ->

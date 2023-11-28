@@ -9,16 +9,16 @@ import java.util.List;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class RestaurantEvaluateDto {
+@AllArgsConstructor
+public class TopTenDto {
+
     Integer menuId;
     String restaurantId;
     String menuName;
     ResultDto evaluate;
     List<String> mood;
     String url;
-    Integer id;
-    Integer firstId;
-    boolean last;
+    String rank;
+
 }
