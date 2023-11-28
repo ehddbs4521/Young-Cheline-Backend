@@ -128,7 +128,6 @@ public class MainPageServiceImpl implements MainPageService {
                 restaurantEvaluateDto[i].setMood(mood);
                 restaurantEvaluateDto[i].setUrl(content.get(i).getUrl());
                 restaurantEvaluateDto[i].setId(content.get(i).getId());
-                restaurantEvaluateDto[i].setFirstId(number);
                 if (page.hasNext()) {
                     restaurantEvaluateDto[i].setLast(false);
                 } else {
@@ -167,7 +166,6 @@ public class MainPageServiceImpl implements MainPageService {
             restaurantEvaluateDto[i].setMood(mood);
             restaurantEvaluateDto[i].setUrl(content.get(i).getUrl());
             restaurantEvaluateDto[i].setId(content.get(i).getId());
-            restaurantEvaluateDto[i].setFirstId(number);
             if (page.hasNext()) {
                 restaurantEvaluateDto[i].setLast(false);
             } else {
@@ -180,8 +178,6 @@ public class MainPageServiceImpl implements MainPageService {
     }
 
     public RestaurantEvaluateDto[] showEvaluateBoxByKeyWordFilter(Integer size, Integer id, List<RestaurantEvaluate> content) {
-        content.stream().forEach(System.out::println);
-
         int number = id;
         boolean last;
         if (content.size() < size) {
@@ -232,7 +228,6 @@ public class MainPageServiceImpl implements MainPageService {
         }
         RestaurantEvaluateDto[] restaurantEvaluateDto = new RestaurantEvaluateDto[size];
         ResultDto resultDto = new ResultDto();
-
         for (int i = 0; i < size; i++) {
             restaurantEvaluateDto[i] = new RestaurantEvaluateDto();
         }

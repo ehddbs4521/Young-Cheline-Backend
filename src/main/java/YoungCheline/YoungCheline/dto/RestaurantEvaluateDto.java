@@ -19,6 +19,5 @@ public class RestaurantEvaluateDto {
     List<String> mood;
     String url;
     Integer id;
-    Integer firstId;
     boolean last;
 }
