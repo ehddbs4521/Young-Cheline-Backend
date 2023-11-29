@@ -17,7 +17,6 @@ public class TopTenDto {
     String restaurantId;
     String menuName;
     ResultDto evaluate;
-    List<String> mood;
     String url;
     String rank;
 

@@ -14,10 +14,5 @@ import java.util.List;
 @NoArgsConstructor
 public class EvaluateDto {
     private String restaurantId;
-    private String flavor;
-    private List<String> mood;
-    private String price;
-    private String cleaning;
-    private String plating;
-    private String service;
+    private ResultDto resultDto;
 }

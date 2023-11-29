@@ -23,7 +23,7 @@ public class RecommendController {
     final HotMenuServiceImpl hotMenuService;
     final SteadyMenuServiceImpl steadyMenuService;
     @GetMapping
-    public ResponseEntity<Object> getRecommend(Authentication authentication) {
+    public Object getRecommend(Authentication authentication) {
         RecommendationResponseDto recommendationResponseDto = new RecommendationResponseDto();
         Map<String, String> error = new HashMap<>();
         error.put("error", "평가 횟수 5회 미만");
@@ -35,7 +35,7 @@ public class RecommendController {
             recommendationResponseDto.setHotMenu(hotMenu);
             recommendationResponseDto.setSteadyMenu(steadyMenu);
 
-            return ResponseEntity.ok().body(recommendationResponseDto);
+            return recommendationResponseDto;
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }

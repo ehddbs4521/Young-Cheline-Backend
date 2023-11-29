@@ -96,9 +96,9 @@ public class MyPageServiceImpl implements MyPageService {
             resultDto.setCleanliness(content.get(i).getCleaning());
             resultDto.setPlating(content.get(i).getPlating());
             resultDto.setService(content.get(i).getService());
+            resultDto.setMood(mood);
 
             restaurantEvaluateDto[i].setEvaluate(resultDto);
-            restaurantEvaluateDto[i].setMood(mood);
             restaurantEvaluateDto[i].setUrl(content.get(i).getUrl());
             restaurantEvaluateDto[i].setId(content.get(i).getId());
         }
@@ -139,13 +139,13 @@ public class MyPageServiceImpl implements MyPageService {
             topTen[i].setMenuId(menu.get(i).getMenuId());
             topTen[i].setMenuName(menu.get(i).getMenuName());
             List<String> mood = checkMood(menu.get(i).getCouple(), menu.get(i).getFamily(), menu.get(i).getSolo(), menu.get(i).getFriend(), menu.get(i).getDrink());
-            topTen[i].setMood(mood);
 
             resultDto.setFlavor(menu.get(i).getFlavor());
             resultDto.setPrice(menu.get(i).getPrice());
             resultDto.setCleanliness(menu.get(i).getCleaning());
             resultDto.setPlating(menu.get(i).getPlating());
             resultDto.setService(menu.get(i).getService());
+            resultDto.setMood(mood);
 
             topTen[i].setEvaluate(resultDto);
             topTen[i].setUrl(menu.get(i).getUrl());
@@ -164,7 +164,7 @@ public class MyPageServiceImpl implements MyPageService {
         for (int i = 0; i < count; i++) {
             Optional<TopTen> ten = topTenRepository.findByTopTenKey_UserNameAndTopTenKey_Ranking(userName, topTenDto[i].getRank());
             TopTenKey topTenKey = new TopTenKey();
-            List<String> mood = topTenDto[i].getMood();
+            List<String> mood = topTenDto[i].getEvaluate().getMood();
             if (ten.isEmpty()) {
                 TopTen topTen = new TopTen();
                 updateTop10(userName, topTenKey, mood, topTen, topTenDto[i]);

@@ -54,9 +54,9 @@ public class RecommendServiceImpl implements RecommendService {
             resultDto.setCleanliness(restaurantEvaluate.getCleaning());
             resultDto.setPlating(restaurantEvaluate.getPlating());
             resultDto.setService(restaurantEvaluate.getService());
+            resultDto.setMood(mood);
 
             recommendDto[i].setEvaluate(resultDto);
-            recommendDto[i].setMood(mood);
             recommendDto[i].setUrl(restaurantEvaluate.getUrl());
         }
         return recommendDto;

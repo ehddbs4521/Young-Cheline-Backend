@@ -37,16 +37,14 @@ public class HotMenuServiceImpl implements HotMenuService {
             RestaurantEvaluate restaurantEvaluate = restaurantEvaluateRepository.findByMenuId(menuId).get();
             recommendDto[i].setRestaurantId(restaurantEvaluate.getRestaurantId());
             recommendDto[i].setMenuName(restaurantEvaluate.getMenuName());
-            List<String> mood = checkMood(restaurantEvaluate.getCouple(), restaurantEvaluate.getFamily(), restaurantEvaluate.getSolo(), restaurantEvaluate.getFriend(), restaurantEvaluate.getDrink());
-
             resultDto.setFlavor(restaurantEvaluate.getFlavor());
+            List<String> mood = checkMood(restaurantEvaluate.getCouple(), restaurantEvaluate.getFamily(), restaurantEvaluate.getSolo(), restaurantEvaluate.getFriend(), restaurantEvaluate.getDrink());
+            resultDto.setMood(mood);
             resultDto.setPrice(restaurantEvaluate.getPrice());
-            resultDto.setCleanliness(restaurantEvaluate.getCleaning());
             resultDto.setPlating(restaurantEvaluate.getPlating());
             resultDto.setService(restaurantEvaluate.getService());
 
             recommendDto[i].setEvaluate(resultDto);
-            recommendDto[i].setMood(mood);
             recommendDto[i].setUrl(restaurantEvaluate.getUrl());
         }
         return recommendDto;

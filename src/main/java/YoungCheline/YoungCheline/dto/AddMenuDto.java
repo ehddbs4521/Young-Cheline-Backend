@@ -4,19 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DetailDto {
-
-    private Integer menuId;
-    private String restaurantId;
-    private ResultDto resultDto;
-    private Statistic[] statistic;
-
-
+public class AddMenuDto {
+    MultipartFile file;
+    String restaurantId;
+    String menuName;
 }

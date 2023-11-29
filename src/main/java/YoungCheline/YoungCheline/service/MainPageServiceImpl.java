@@ -57,9 +57,9 @@ public class MainPageServiceImpl implements MainPageService {
             resultDto.setCleanliness(content.get(i).getCleaning());
             resultDto.setPlating(content.get(i).getPlating());
             resultDto.setService(content.get(i).getService());
+            resultDto.setMood(mood);
 
             restaurantEvaluateDto[i].setEvaluate(resultDto);
-            restaurantEvaluateDto[i].setMood(mood);
             restaurantEvaluateDto[i].setUrl(content.get(i).getUrl());
             restaurantEvaluateDto[i].setId(content.get(i).getId());
             if (page.hasNext()) {
@@ -123,9 +123,8 @@ public class MainPageServiceImpl implements MainPageService {
                 resultDto.setCleanliness(content.get(i).getCleaning());
                 resultDto.setPlating(content.get(i).getPlating());
                 resultDto.setService(content.get(i).getService());
-
+                resultDto.setMood(mood);
                 restaurantEvaluateDto[i].setEvaluate(resultDto);
-                restaurantEvaluateDto[i].setMood(mood);
                 restaurantEvaluateDto[i].setUrl(content.get(i).getUrl());
                 restaurantEvaluateDto[i].setId(content.get(i).getId());
                 if (page.hasNext()) {
@@ -161,9 +160,9 @@ public class MainPageServiceImpl implements MainPageService {
             resultDto.setCleanliness(content.get(i).getCleaning());
             resultDto.setPlating(content.get(i).getPlating());
             resultDto.setService(content.get(i).getService());
+            resultDto.setMood(mood);
 
             restaurantEvaluateDto[i].setEvaluate(resultDto);
-            restaurantEvaluateDto[i].setMood(mood);
             restaurantEvaluateDto[i].setUrl(content.get(i).getUrl());
             restaurantEvaluateDto[i].setId(content.get(i).getId());
             if (page.hasNext()) {
@@ -198,9 +197,9 @@ public class MainPageServiceImpl implements MainPageService {
                 resultDto.setCleanliness(content.get(i).getCleaning());
                 resultDto.setPlating(content.get(i).getPlating());
                 resultDto.setService(content.get(i).getService());
+                resultDto.setMood(mood);
 
                 restaurantEvaluateDto[i].setEvaluate(resultDto);
-                restaurantEvaluateDto[i].setMood(mood);
                 restaurantEvaluateDto[i].setUrl(content.get(i).getUrl());
                 restaurantEvaluateDto[i].setId(content.get(i).getId());
                 restaurantEvaluateDto[i].setLast(true);
@@ -242,9 +241,9 @@ public class MainPageServiceImpl implements MainPageService {
             resultDto.setCleanliness(filteredContent.get(i).getCleaning());
             resultDto.setPlating(filteredContent.get(i).getPlating());
             resultDto.setService(filteredContent.get(i).getService());
+            resultDto.setMood(mood);
 
             restaurantEvaluateDto[i].setEvaluate(resultDto);
-            restaurantEvaluateDto[i].setMood(mood);
             restaurantEvaluateDto[i].setUrl(filteredContent.get(i).getUrl());
             restaurantEvaluateDto[i].setId(filteredContent.get(i).getId());
             restaurantEvaluateDto[i].setLast(last);

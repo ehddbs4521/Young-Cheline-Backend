@@ -21,7 +21,7 @@ public class DetailController {
     private final DetailServiceImpl detailService;
 
     @GetMapping("/{menuId}")
-    public ResponseEntity<DetailDto> getDetail(@RequestParam("menuId") Integer menuId, Authentication authentication) {
+    public ResponseEntity<DetailDto> getDetail(@RequestParam("menuId") Integer menuId) {
         DetailDto detail = detailService.getDetail(menuId);
 
         return ResponseEntity.ok(detail);

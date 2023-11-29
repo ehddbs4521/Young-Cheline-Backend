@@ -1,6 +1,8 @@
 package YoungCheline.YoungCheline.controller;
 
+import YoungCheline.YoungCheline.dto.AddMenuDto;
 import YoungCheline.YoungCheline.dto.KakaoMapDto;
+import YoungCheline.YoungCheline.dto.SurveyDto;
 import YoungCheline.YoungCheline.service.EvaluateServiceImpl;
 import YoungCheline.YoungCheline.service.ImageServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -41,17 +43,17 @@ public class EvaluateController {
     }
 
     @GetMapping("/menu")
-    public ResponseEntity<String> getMenu(@RequestBody HashMap<String, String> restaurantId) throws JSONException {
-        String menu = evaluateServiceImpl.getMenu(restaurantId.get("restaurantId"));
-        return ResponseEntity.ok().body(menu);
+    public Object getMenu(@RequestParam("restaurantId") String restaurantId) throws JSONException {
+        Map<String, String> menuName = new HashMap<>();
+        String menu = evaluateServiceImpl.getMenu(restaurantId);
+        menuName.put("menuName",menu);
+        return menuName;
     }
 
     @PostMapping("/menu/add-menu")
-    public ResponseEntity<Map<String, String>> addMenu(@RequestParam("file") MultipartFile file,
-                                                       @RequestParam("restaurantId") String restaurantId,
-                                                       @RequestParam("menuName") String menuName) throws IOException {
+    public ResponseEntity<Map<String, String>> addMenu(@RequestBody AddMenuDto addMenuDto) throws IOException {
 
-        Map<String, String> menu = imageService.uploadMenu(file, bucket, restaurantId, menuName);
+        Map<String, String> menu = imageService.uploadMenu(addMenuDto.getFile(), bucket, addMenuDto.getRestaurantId(), addMenuDto.getMenuName());
         if (menu.get("menu") == null) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
@@ -59,25 +61,19 @@ public class EvaluateController {
     }
 
     @PostMapping("/menu/survey/{menuId}")
-    public ResponseEntity<Optional> evaluateMenu(@PathVariable Integer menuId,
-                                                 @RequestParam("restaurantId") String restaurantId,
-                                                 @RequestParam("taste") String taste,
-                                                 @RequestParam("mood") List<String> mood,
-                                                 @RequestParam("price") String price,
-                                                 @RequestParam("cleaning") String cleaning,
-                                                 @RequestParam("plating") String plating,
-                                                 @RequestParam("service") String service,
-                                                 @RequestParam("file") MultipartFile file,Authentication authentication) throws IOException {
+    public ResponseEntity<Optional> evaluateMenu(@RequestBody SurveyDto surveyDto, Authentication authentication) throws IOException {
+
+
         evaluateServiceImpl.evaluateMenu(
-                restaurantId,
-                menuId,
-                taste,
-                price,
-                mood,
-                cleaning,
-                plating,
-                service,
-                file,
+                surveyDto.getRestaurantId(),
+                surveyDto.getMenuId(),
+                surveyDto.getResultDto().getFlavor(),
+                surveyDto.getResultDto().getPrice(),
+                surveyDto.getResultDto().getMood(),
+                surveyDto.getResultDto().getCleanliness(),
+                surveyDto.getResultDto().getPlating(),
+                surveyDto.getResultDto().getService(),
+                surveyDto.getFile(),
                 authentication.getName(),
                 LocalDateTime.now().toString(),
                 bucket);

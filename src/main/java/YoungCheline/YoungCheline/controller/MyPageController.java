@@ -53,15 +53,15 @@ public class MyPageController {
     }
 
     @GetMapping("/evaluate-list")
-    public ResponseEntity<RestaurantEvaluateDto[]> showEvaluateList(@RequestParam(defaultValue = "0") Integer id, @RequestParam("size") Integer size, Authentication authentication) {
+    public Object showEvaluateList(@RequestParam(defaultValue = "0") Integer id, @RequestParam("size") Integer size, Authentication authentication) {
         RestaurantEvaluateDto[] restaurantEvaluateDtos = myPageServiceImpl.showEvaluateList(size, id, authentication.getName());
-        return ResponseEntity.ok().body(restaurantEvaluateDtos);
+        return restaurantEvaluateDtos;
     }
 
     @GetMapping("/top10-list")
-    public ResponseEntity<TopTenDto[]> showTop10List(Authentication authentication) {
+    public Object showTop10List(Authentication authentication) {
         TopTenDto[] topTenDtos = myPageServiceImpl.showTop10List(authentication.getName());
-        return ResponseEntity.ok().body(topTenDtos);
+        return topTenDtos;
     }
 
     @PostMapping("/top10-list")

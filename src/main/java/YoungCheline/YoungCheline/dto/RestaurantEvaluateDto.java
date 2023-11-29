@@ -16,7 +16,6 @@ public class RestaurantEvaluateDto {
     String restaurantId;
     String menuName;
     ResultDto evaluate;
-    List<String> mood;
     String url;
     Integer id;
     boolean last;

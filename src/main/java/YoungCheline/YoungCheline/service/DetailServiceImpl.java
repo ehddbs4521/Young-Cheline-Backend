@@ -1,6 +1,7 @@
 package YoungCheline.YoungCheline.service;
 
 import YoungCheline.YoungCheline.dto.DetailDto;
+import YoungCheline.YoungCheline.dto.ResultDto;
 import YoungCheline.YoungCheline.dto.Statistic;
 import YoungCheline.YoungCheline.entity.Detail;
 import YoungCheline.YoungCheline.entity.RestaurantEvaluate;
@@ -21,16 +22,18 @@ public class DetailServiceImpl implements DetailService {
     public DetailDto getDetail(Integer menuId) {
         DetailDto detailDto = new DetailDto();
         Statistic[] statistic = new Statistic[3];
+        ResultDto resultDto = new ResultDto();
         Detail detail = detailRepository.findByMenuId(menuId).get();
         RestaurantEvaluate restaurantEvaluate = restaurantEvaluateRepository.findByMenuId(menuId).get();
         detailDto.setMenuId(menuId);
         detailDto.setRestaurantId(restaurantEvaluate.getRestaurantId());
-        detailDto.setFlavor(restaurantEvaluate.getFlavor());
+        resultDto.setFlavor(restaurantEvaluate.getFlavor());
         List<String> mood = checkMood(restaurantEvaluate.getCouple(), restaurantEvaluate.getFamily(), restaurantEvaluate.getSolo(), restaurantEvaluate.getFriend(), restaurantEvaluate.getDrink());
-        detailDto.setMood(mood);
-        detailDto.setPrice(restaurantEvaluate.getPrice());
-        detailDto.setPlating(restaurantEvaluate.getPlating());
-        detailDto.setService(restaurantEvaluate.getService());
+        resultDto.setMood(mood);
+        resultDto.setPrice(restaurantEvaluate.getPrice());
+        resultDto.setPlating(restaurantEvaluate.getPlating());
+        resultDto.setService(restaurantEvaluate.getService());
+        detailDto.setResultDto(resultDto);
 
         for (int i = 0; i < 3; i++) {
             statistic[i] = new Statistic();
