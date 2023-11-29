@@ -38,7 +38,6 @@ public class UserServiceImpl implements UserService {
     @Value("default.profile")
     private String defaultProfile;
 
-
     public boolean register(String userName, String password, String email) {
         if (checkUserByEmail(email)) {
             Optional<User> userOpt = userRepository.findByEmail(email);

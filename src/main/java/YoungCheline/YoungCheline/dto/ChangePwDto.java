@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
-@Component
 @RequiredArgsConstructor
 @Getter
 @Setter

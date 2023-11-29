@@ -23,14 +23,9 @@ public class User{
     private String userName;
     private String password;
     private String email;
-    @Enumerated(EnumType.STRING)
-    private Role role;
     private boolean active;
     private String tempPw;
     private LocalDateTime time;
-    public void authorizeUser() {
-        this.role = Role.USER;
-    }
 
 
 

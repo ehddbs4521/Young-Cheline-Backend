@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -12,7 +11,9 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class EvaluateDto {
+public class DetailDto {
+
+    private Integer menuId;
     private String restaurantId;
     private String flavor;
     private List<String> mood;
@@ -20,4 +21,7 @@ public class EvaluateDto {
     private String cleaning;
     private String plating;
     private String service;
+    private Statistic[] statistic;
+
+
 }

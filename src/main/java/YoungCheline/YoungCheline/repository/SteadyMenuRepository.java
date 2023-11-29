@@ -1,6 +1,5 @@
 package YoungCheline.YoungCheline.repository;
 
-import YoungCheline.YoungCheline.entity.HotMenu;
 import YoungCheline.YoungCheline.entity.SteadyMenu;
 import YoungCheline.YoungCheline.entity.TimeKey;
 import org.springframework.data.jpa.repository.JpaRepository;
