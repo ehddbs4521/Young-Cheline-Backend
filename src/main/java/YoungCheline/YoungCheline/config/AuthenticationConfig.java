@@ -1,7 +1,6 @@
 package YoungCheline.YoungCheline.config;
 
 import YoungCheline.YoungCheline.filter.JwtFilter;
-import YoungCheline.YoungCheline.role.Role;
 import YoungCheline.YoungCheline.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,8 +31,8 @@ public class AuthenticationConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> {
-                    requests.requestMatchers("/register/**", "/login/**","/home/**","/details/**").permitAll();
-                    requests.requestMatchers("/mypage/**", "/evaluate/**","/recommend/**").authenticated();
+                    requests.requestMatchers("/register/**", "/login/**","/home/**").permitAll();
+                    requests.requestMatchers("/mypage/**", "/evaluate/**","/recommend/**","/details/**").authenticated();
                 })
                 .sessionManagement(
                         sessionManagement ->
