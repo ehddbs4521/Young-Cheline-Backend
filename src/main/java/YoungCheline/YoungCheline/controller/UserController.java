@@ -1,9 +1,6 @@
 package YoungCheline.YoungCheline.controller;
 
-import YoungCheline.YoungCheline.dto.EmailDto;
-import YoungCheline.YoungCheline.dto.JwtDto;
-import YoungCheline.YoungCheline.dto.LoginDto;
-import YoungCheline.YoungCheline.dto.RegisterDto;
+import YoungCheline.YoungCheline.dto.*;
 import YoungCheline.YoungCheline.entity.User;
 import YoungCheline.YoungCheline.error.RegisterError;
 import YoungCheline.YoungCheline.error.UserError;
@@ -14,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -77,6 +76,14 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RegisterError("가입하신 이메일을 다시 입력해주세요."));
+
+    }
+
+    @GetMapping("/me")
+    public Object getProfile(Authentication authentication) {
+        ProfileDto profile = userServiceImpl.getProfile(authentication.getName());
+
+        return profile;
 
     }
 

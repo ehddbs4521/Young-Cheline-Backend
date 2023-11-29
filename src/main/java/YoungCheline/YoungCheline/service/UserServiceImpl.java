@@ -1,6 +1,7 @@
 package YoungCheline.YoungCheline.service;
 
 import YoungCheline.YoungCheline.dto.JwtDto;
+import YoungCheline.YoungCheline.dto.ProfileDto;
 import YoungCheline.YoungCheline.dto.RegisterDto;
 import YoungCheline.YoungCheline.entity.Profile;
 import YoungCheline.YoungCheline.entity.User;
@@ -157,5 +158,20 @@ public class UserServiceImpl implements UserService {
     public User getUserByEmail(String email) {
         Optional<User> user = userRepository.findByEmail(email);
         return user.get();
+    }
+
+    public ProfileDto getProfile(String userName) {
+        ProfileDto profileDto = new ProfileDto();
+
+        String url = imageRepository.findByUserName(userName).get().getUrl();
+        profileDto.setUrl(url);
+
+        if (userName == null) {
+            profileDto.setUserName(null);
+            return profileDto;
+        }
+        profileDto.setUserName(userName);
+
+        return profileDto;
     }
 }
