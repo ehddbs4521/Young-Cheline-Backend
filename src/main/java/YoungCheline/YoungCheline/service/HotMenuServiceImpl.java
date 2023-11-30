@@ -45,7 +45,11 @@ public class HotMenuServiceImpl implements HotMenuService {
             resultDto.setService(restaurantEvaluate.getService());
 
             recommendDto[i].setEvaluate(resultDto);
-            recommendDto[i].setUrl(restaurantEvaluate.getUrl());
+            if (restaurantEvaluate.getUrl() == null) {
+                recommendDto[i].setUrl(null);
+            } else {
+                recommendDto[i].setUrl(restaurantEvaluate.getUrl());
+            }
         }
         return recommendDto;
     }

@@ -27,6 +27,13 @@ public class DetailServiceImpl implements DetailService {
         RestaurantEvaluate restaurantEvaluate = restaurantEvaluateRepository.findByMenuId(menuId).get();
         detailDto.setMenuId(menuId);
         detailDto.setRestaurantId(restaurantEvaluate.getRestaurantId());
+
+        if (restaurantEvaluate.getUrl() == null) {
+            detailDto.setUrl(null);
+        } else {
+            detailDto.setUrl(restaurantEvaluate.getUrl());
+        }
+
         resultDto.setFlavor(restaurantEvaluate.getFlavor());
         List<String> mood = checkMood(restaurantEvaluate.getCouple(), restaurantEvaluate.getFamily(), restaurantEvaluate.getSolo(), restaurantEvaluate.getFriend(), restaurantEvaluate.getDrink());
         resultDto.setMood(mood);

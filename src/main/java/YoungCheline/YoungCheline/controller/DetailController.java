@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/detail")
 public class DetailController {
 
-    @Value("admin.id")
-    private String admin;
     private final DetailServiceImpl detailService;
 
     @GetMapping("/{menuId}")

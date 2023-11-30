@@ -16,6 +16,7 @@ public class DetailDto {
     private Integer menuId;
     private String restaurantId;
     private ResultDto resultDto;
+    private String url;
     private Statistic[] statistic;
 
 

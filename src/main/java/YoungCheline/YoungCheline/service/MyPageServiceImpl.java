@@ -99,7 +99,11 @@ public class MyPageServiceImpl implements MyPageService {
             resultDto.setMood(mood);
 
             restaurantEvaluateDto[i].setEvaluate(resultDto);
-            restaurantEvaluateDto[i].setUrl(content.get(i).getUrl());
+            if (content.get(i).getUrl() == null) {
+                restaurantEvaluateDto[i].setUrl(null);
+            } else {
+                restaurantEvaluateDto[i].setUrl(content.get(i).getUrl());
+            }
             restaurantEvaluateDto[i].setId(content.get(i).getId());
         }
 
@@ -148,7 +152,11 @@ public class MyPageServiceImpl implements MyPageService {
             resultDto.setMood(mood);
 
             topTen[i].setEvaluate(resultDto);
-            topTen[i].setUrl(menu.get(i).getUrl());
+            if (menu.get(i).getUrl() == null) {
+                topTen[i].setUrl(null);
+            } else {
+                topTen[i].setUrl(menu.get(i).getUrl());
+            }
             topTen[i].setRank(menu.get(i).getTopTenKey().getRanking());
         }
 

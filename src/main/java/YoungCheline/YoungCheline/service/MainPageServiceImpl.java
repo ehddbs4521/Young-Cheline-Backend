@@ -60,7 +60,11 @@ public class MainPageServiceImpl implements MainPageService {
             resultDto.setMood(mood);
 
             restaurantEvaluateDto[i].setEvaluate(resultDto);
-            restaurantEvaluateDto[i].setUrl(content.get(i).getUrl());
+            if (content.get(i).getUrl() == null) {
+                restaurantEvaluateDto[i].setUrl(null);
+            } else {
+                restaurantEvaluateDto[i].setUrl(content.get(i).getUrl());
+            }
             restaurantEvaluateDto[i].setId(content.get(i).getId());
             if (page.hasNext()) {
                 restaurantEvaluateDto[i].setLast(false);
@@ -125,8 +129,11 @@ public class MainPageServiceImpl implements MainPageService {
                 resultDto.setService(content.get(i).getService());
                 resultDto.setMood(mood);
                 restaurantEvaluateDto[i].setEvaluate(resultDto);
-                restaurantEvaluateDto[i].setUrl(content.get(i).getUrl());
-                restaurantEvaluateDto[i].setId(content.get(i).getId());
+                if (content.get(i).getUrl() == null) {
+                    restaurantEvaluateDto[i].setUrl(null);
+                } else {
+                    restaurantEvaluateDto[i].setUrl(content.get(i).getUrl());
+                }                restaurantEvaluateDto[i].setId(content.get(i).getId());
                 if (page.hasNext()) {
                     restaurantEvaluateDto[i].setLast(false);
                 } else {
@@ -163,7 +170,11 @@ public class MainPageServiceImpl implements MainPageService {
             resultDto.setMood(mood);
 
             restaurantEvaluateDto[i].setEvaluate(resultDto);
-            restaurantEvaluateDto[i].setUrl(content.get(i).getUrl());
+            if (content.get(i).getUrl() == null) {
+                restaurantEvaluateDto[i].setUrl(null);
+            } else {
+                restaurantEvaluateDto[i].setUrl(content.get(i).getUrl());
+            }
             restaurantEvaluateDto[i].setId(content.get(i).getId());
             if (page.hasNext()) {
                 restaurantEvaluateDto[i].setLast(false);
@@ -200,7 +211,11 @@ public class MainPageServiceImpl implements MainPageService {
                 resultDto.setMood(mood);
 
                 restaurantEvaluateDto[i].setEvaluate(resultDto);
-                restaurantEvaluateDto[i].setUrl(content.get(i).getUrl());
+                if (content.get(i).getUrl() == null) {
+                    restaurantEvaluateDto[i].setUrl(null);
+                } else {
+                    restaurantEvaluateDto[i].setUrl(content.get(i).getUrl());
+                }
                 restaurantEvaluateDto[i].setId(content.get(i).getId());
                 restaurantEvaluateDto[i].setLast(true);
             }
@@ -244,7 +259,11 @@ public class MainPageServiceImpl implements MainPageService {
             resultDto.setMood(mood);
 
             restaurantEvaluateDto[i].setEvaluate(resultDto);
-            restaurantEvaluateDto[i].setUrl(filteredContent.get(i).getUrl());
+            if (filteredContent.get(i).getUrl() == null) {
+                restaurantEvaluateDto[i].setUrl(null);
+            } else {
+                restaurantEvaluateDto[i].setUrl(filteredContent.get(i).getUrl());
+            }
             restaurantEvaluateDto[i].setId(filteredContent.get(i).getId());
             restaurantEvaluateDto[i].setLast(last);
         }
