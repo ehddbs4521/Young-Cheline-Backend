@@ -61,20 +61,22 @@ public class EvaluateController {
         return ResponseEntity.ok().body(menu);
     }
 
-    @PostMapping("/menu/survey/{menuId}")
-    public ResponseEntity<Optional> evaluateMenu(@RequestBody SurveyDto surveyDto, Authentication authentication) throws IOException {
+    @PostMapping("/menu/survey")
+    public ResponseEntity<Optional> evaluateMenu(@RequestParam("file") MultipartFile file,@ModelAttribute SurveyDto surveyDto, Authentication authentication) throws IOException {
 
+        System.out.println(file.getOriginalFilename().toString());
+        System.out.println(surveyDto.getMood());
 
         evaluateServiceImpl.evaluateMenu(
                 surveyDto.getRestaurantId(),
                 surveyDto.getMenuId(),
-                surveyDto.getResultDto().getFlavor(),
-                surveyDto.getResultDto().getPrice(),
-                surveyDto.getResultDto().getMood(),
-                surveyDto.getResultDto().getCleanliness(),
-                surveyDto.getResultDto().getPlating(),
-                surveyDto.getResultDto().getService(),
-                surveyDto.getFile(),
+                surveyDto.getFlavor(),
+                surveyDto.getPrice(),
+                surveyDto.getMood(),
+                surveyDto.getCleanliness(),
+                surveyDto.getPlating(),
+                surveyDto.getService(),
+                file,
                 authentication.getName(),
                 LocalDateTime.now().toString(),
                 bucket);

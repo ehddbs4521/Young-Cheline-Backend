@@ -66,10 +66,27 @@ public class EvaluateServiceImpl implements EvaluateService {
     }
 
     public void evaluateMenu(String restaurantId, Integer menuId, String taste, String price, List<String> mood, String cleaning, String plating, String service, MultipartFile file, String userName, String time, String bucket) throws IOException {
-
+        System.out.println("------------------");
+        System.out.println(restaurantId);
+        System.out.println(menuId);
+        System.out.println(taste);
+        System.out.println(price);
+        System.out.println(mood);
+        System.out.println(cleaning);
+        System.out.println(plating);
+        System.out.println(service);
+        System.out.println(file.getOriginalFilename().toString());
+        System.out.println(userName);
+        System.out.println(time);
+        System.out.println("------------------");
         Evaluate evaluate = new Evaluate();
-        List<Integer> num = evaluateRepository.findFirstByKey_UserNameOrderByIdDesc(userName).stream().map(Evaluate::getId).collect(Collectors.toList());
-        int number = num.get(0);
+        int number;
+        Optional<Evaluate> firstByKeyUserNameOrderByIdDesc = evaluateRepository.findFirstByKey_UserNameOrderByIdDesc(userName);
+        if (!firstByKeyUserNameOrderByIdDesc.isEmpty()) {
+            number = firstByKeyUserNameOrderByIdDesc.stream().map(Evaluate::getId).collect(Collectors.toList()).get(0);
+        } else {
+            number=0;
+        }
         key.setMenuId(menuId);
         key.setTime(time);
         key.setUserName(userName);

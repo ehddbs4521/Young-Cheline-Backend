@@ -14,6 +14,10 @@ import java.util.List;
 public class SurveyDto {
     Integer menuId;
     String restaurantId;
-    ResultDto resultDto;
-    MultipartFile file;
+    String flavor;
+    String cleanliness;
+    String service;
+    String price;
+    String plating;
+    List<String> mood;
 }
