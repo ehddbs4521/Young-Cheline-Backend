@@ -1,5 +1,6 @@
 package YoungCheline.YoungCheline.service;
 
+import YoungCheline.YoungCheline.dto.GetMenuDto;
 import YoungCheline.YoungCheline.dto.KakaoMapDto;
 import YoungCheline.YoungCheline.entity.*;
 import YoungCheline.YoungCheline.repository.*;
@@ -44,27 +45,24 @@ public class EvaluateServiceImpl implements EvaluateService {
         return kakaoMapDto;
     }
 
-    public String getMenu(String restaurantId) throws JSONException {
-
+    public GetMenuDto[] getMenu(String restaurantId) {
         List<String> menuName = menuRepository.findByRestaurantId(restaurantId).stream().map(Menu::getMenuName).collect(Collectors.toList());
 
         List<String> url = menuRepository.findByRestaurantId(restaurantId).stream().map(Menu::getUrl).collect(Collectors.toList());
 
         List<Integer> menuId = menuRepository.findByRestaurantId(restaurantId).stream().map(Menu::getMenuId).collect(Collectors.toList());
-        JSONArray jsonArray = new JSONArray();
-        for (int i = 0; i < menuId.size(); i++) {
-            JSONObject obj = new JSONObject();
-            obj.put("menuId", menuId.get(i));
-            obj.put("menuName", menuName.get(i));
-            if (url.get(i) == null) {
-                obj.put("url", "");
-            } else {
-                obj.put("url", url.get(i));
-            }
-            jsonArray.put(obj);
+        int cnt = menuId.size();
+        GetMenuDto[] getMenuDtos = new GetMenuDto[cnt];
+
+        for (int i = 0; i < cnt; i++) {
+            getMenuDtos[i] = new GetMenuDto();
+            getMenuDtos[i].setMenuId(menuId.get(i));
+            getMenuDtos[i].setMenuName(menuName.get(i));
+            getMenuDtos[i].setUrl(url.get(i));
         }
 
-        return jsonArray.toString();
+
+        return getMenuDtos;
     }
 
     public void evaluateMenu(String restaurantId, Integer menuId, String taste, String price, List<String> mood, String cleaning, String plating, String service, MultipartFile file, String userName, String time, String bucket) throws IOException {

@@ -1,6 +1,7 @@
 package YoungCheline.YoungCheline.controller;
 
 import YoungCheline.YoungCheline.dto.AddMenuDto;
+import YoungCheline.YoungCheline.dto.GetMenuDto;
 import YoungCheline.YoungCheline.dto.KakaoMapDto;
 import YoungCheline.YoungCheline.dto.SurveyDto;
 import YoungCheline.YoungCheline.service.EvaluateServiceImpl;
@@ -44,11 +45,10 @@ public class EvaluateController {
     }
 
     @GetMapping("/menu")
-    public Object getMenu(@RequestParam("restaurantId") String restaurantId) throws JSONException {
-        Map<String, String> menuName = new HashMap<>();
-        String menu = evaluateServiceImpl.getMenu(restaurantId);
-        menuName.put("menuName",menu);
-        return menuName;
+    public Object getMenu(@RequestParam("restaurantId") String restaurantId)  {
+        GetMenuDto[] menu = evaluateServiceImpl.getMenu(restaurantId);
+
+        return menu;
     }
 
     @PostMapping("/menu/add-menu")
