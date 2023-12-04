@@ -74,6 +74,7 @@ public interface RestaurantEvaluateRepository extends JpaRepository<RestaurantEv
                 predicates.add(root.get("friend").in(friend));
             }
 
+
             // Combine all predicates using AND operation
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         };

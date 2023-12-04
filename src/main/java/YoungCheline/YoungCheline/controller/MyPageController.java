@@ -2,7 +2,6 @@ package YoungCheline.YoungCheline.controller;
 
 import YoungCheline.YoungCheline.dto.RestaurantEvaluateDto;
 import YoungCheline.YoungCheline.dto.TopTenDto;
-import YoungCheline.YoungCheline.error.MyPageError;
 import YoungCheline.YoungCheline.service.ImageServiceImpl;
 import YoungCheline.YoungCheline.service.MyPageServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +20,7 @@ import java.util.Map;
 
 @Slf4j
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
 @RequestMapping("/mypage")
 public class MyPageController {
@@ -32,10 +32,13 @@ public class MyPageController {
 
     @PostMapping("/change-pw")
     public ResponseEntity<Object> changePw(@RequestBody Map<String, String> changePwMap, Authentication authentication) {
+        Map<String, String> error = new HashMap<>();
+
         String changePw = changePwMap.get("changePw");
         String userName = authentication.getName();
         if (myPageServiceImpl.isSamePwEach(userName, changePw)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MyPageError("기존 비밀번호와 동일합니다"));
+            error.put("error","기존 비밀번호와 동일");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
         Map<String, String> pwMap = myPageServiceImpl.changePw(userName, changePw);
         return ResponseEntity.ok().body(pwMap);

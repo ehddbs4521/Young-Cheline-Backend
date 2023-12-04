@@ -14,6 +14,5 @@ import lombok.Setter;
 public class EmailDto {
 
     @NotBlank
-    @Email
     private String email;
 }

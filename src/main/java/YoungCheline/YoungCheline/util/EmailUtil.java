@@ -20,7 +20,7 @@ public class EmailUtil {
         mimeMessageHelper.setSubject("이메일 인증");
         mimeMessageHelper.setText("""
                 <div>
-                  <a href="http://localhost:8080/register/verify-email?email=%s" target="_blank">링크를 누르세요</a>
+                  <a href="http://localhost:3000/sign-up?email=%s" target="_blank">링크를 누르세요</a>
                 </div>
                 """.formatted(email), true);
 

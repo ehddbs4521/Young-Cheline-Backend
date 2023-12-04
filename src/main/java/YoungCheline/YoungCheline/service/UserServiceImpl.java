@@ -18,8 +18,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -36,7 +38,7 @@ public class UserServiceImpl implements UserService {
     @Value("${secretkey}")
     private String secretKey;
     private Long expiredMs = 1000 * 60 * 60 * 24 * 50L;
-    @Value("default.profile")
+    @Value("${default_profile}")
     private String defaultProfile;
 
     public boolean register(String userName, String password, String email) {
@@ -65,7 +67,8 @@ public class UserServiceImpl implements UserService {
     }
 
     public boolean sendEmail(String email) throws MessagingException {
-        if (!userRepository.existsByEmail(email)) {
+        Optional<User> userEmail = userRepository.findByEmail(email);
+        if (userEmail.isEmpty()) {
             emailUtil.sendEmail(email);
             User user = new User();
             user.setEmail(email);
