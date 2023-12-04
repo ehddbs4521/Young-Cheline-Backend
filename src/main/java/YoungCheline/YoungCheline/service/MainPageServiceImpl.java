@@ -313,7 +313,7 @@ public class MainPageServiceImpl implements MainPageService {
 
         Specification<RestaurantEvaluate> restaurantEvaluateSpecification = restaurantEvaluateRepository.buildSpecification(menuName, flavor, plating, cleaning, service, couple, family, solo, drink, friend);
         List<RestaurantEvaluate> content = restaurantEvaluateRepository.findAll(restaurantEvaluateSpecification);
-        content.stream().forEach(System.out::println);
+
         return content;
     }
 }

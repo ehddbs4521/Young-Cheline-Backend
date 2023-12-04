@@ -37,15 +37,16 @@ public class MainPageController {
     }
 
     @GetMapping("/search/filter")
-    public Object getSearchFilter(@RequestParam("keyword") String menuName, @RequestParam("size") Integer size, @RequestParam(defaultValue = "0") Integer id
-            , @RequestParam("flavor") List<String> flavor
-            , @RequestParam("mood") List<String> mood
-            , @RequestParam("plating") List<String> plating
-            , @RequestParam("cleaning") List<String> cleaning
-            , @RequestParam("service") List<String> service
+    public RestaurantEvaluateDto[] getSearchFilter(@RequestParam("keyword") String menuName, @RequestParam("size") Integer size, @RequestParam(defaultValue = "0") Integer id
+            , @RequestParam(defaultValue = "") List<String> flavor
+            , @RequestParam(defaultValue = "") List<String> mood
+            , @RequestParam(defaultValue = "") List<String> plating
+            , @RequestParam(defaultValue = "") List<String> cleanliness
+            , @RequestParam(defaultValue = "") List<String> service
     ) {
-        List<RestaurantEvaluate> menu = mainPageService.init(menuName, flavor, mood, plating, cleaning, service);
+        List<RestaurantEvaluate> menu = mainPageService.init(menuName, flavor, mood, plating, cleanliness, service);
         RestaurantEvaluateDto[] restaurantEvaluateDto = mainPageService.showEvaluateBoxByKeyWordFilter(size, id, menu);
+
         return restaurantEvaluateDto;
     }
 

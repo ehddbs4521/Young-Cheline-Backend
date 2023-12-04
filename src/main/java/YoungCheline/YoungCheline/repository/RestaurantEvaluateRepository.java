@@ -75,6 +75,7 @@ public interface RestaurantEvaluateRepository extends JpaRepository<RestaurantEv
             }
 
 
+
             // Combine all predicates using AND operation
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         };
