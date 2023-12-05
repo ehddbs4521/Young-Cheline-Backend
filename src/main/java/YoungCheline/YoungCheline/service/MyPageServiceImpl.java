@@ -61,7 +61,7 @@ public class MyPageServiceImpl implements MyPageService {
     public RestaurantEvaluateDto[] showEvaluateList(int size, int lastNumber, String userName) {
 
         Integer number = evaluateRepository.findFirstByKey_UserNameOrderByIdDesc(userName).get().getId();
-
+        log.info("number:{}",number);
         if (lastNumber == 0) {
             lastNumber = number + 1;
         }

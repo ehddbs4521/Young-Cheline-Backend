@@ -1,9 +1,6 @@
 package YoungCheline.YoungCheline.controller;
 
-import YoungCheline.YoungCheline.dto.AddMenuDto;
-import YoungCheline.YoungCheline.dto.GetMenuDto;
-import YoungCheline.YoungCheline.dto.KakaoMapDto;
-import YoungCheline.YoungCheline.dto.SurveyDto;
+import YoungCheline.YoungCheline.dto.*;
 import YoungCheline.YoungCheline.service.EvaluateServiceImpl;
 import YoungCheline.YoungCheline.service.ImageServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -52,10 +49,10 @@ public class EvaluateController {
     }
 
     @PostMapping("/menu/add-menu")
-    public ResponseEntity<Map<String, String>> addMenu(@RequestBody AddMenuDto addMenuDto) throws IOException {
-
-        Map<String, String> menu = imageService.uploadMenu(addMenuDto.getFile(), bucket, addMenuDto.getRestaurantId(), addMenuDto.getMenuName());
-        if (menu.get("menu") == null) {
+    public ResponseEntity<AddMenuUrlDto> addMenu(@RequestParam("file") MultipartFile file,@ModelAttribute AddMenuDto addMenuDto) throws IOException {
+        System.out.println(file.getOriginalFilename().toString());
+        AddMenuUrlDto menu = imageService.uploadMenu(file, bucket, addMenuDto.getRestaurantId(), addMenuDto.getMenuName());
+        if (menu == null) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         return ResponseEntity.ok().body(menu);

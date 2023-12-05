@@ -12,9 +12,11 @@ import java.util.Optional;
 @Repository
 public interface MenuRepository extends JpaRepository<Menu, Long> {
     List<Menu> findByRestaurantId(String restaurantId);
-    @Query("SELECT e FROM Menu e WHERE e.restaurantId = :restaurantId AND e.menuName = :menuName")
-    Optional<Menu> findByRestaurantIdAndMenuName(@Param("restaurantId") String restaurantId, @Param("menuName") String menu);
+    Optional<Menu> findByRestaurantIdAndMenuName(String restaurantId,String menu);
     @Query("SELECT e FROM Menu e WHERE e.restaurantId = :restaurantId AND e.menuId = :menuId")
     Optional<Menu> findByRestaurantIdAndMenuId(@Param("restaurantId") String restaurantId, @Param("menuId") Integer menu);
+
+    @Query("SELECT MAX(e.menuId) FROM Menu e")
+    Integer findMaxMenuId();
 
 }

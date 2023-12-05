@@ -1,5 +1,7 @@
 package YoungCheline.YoungCheline.service;
 
+import YoungCheline.YoungCheline.dto.AddMenuDto;
+import YoungCheline.YoungCheline.dto.AddMenuUrlDto;
 import YoungCheline.YoungCheline.entity.MenuImage;
 import YoungCheline.YoungCheline.entity.MenuKey;
 import YoungCheline.YoungCheline.entity.Profile;
@@ -44,11 +46,12 @@ public class ImageServiceImpl implements ImageService {
         return profile;
     }
 
-    public Map<String, String> uploadMenu(MultipartFile file, String bucket, String restaurantId, String menuName) throws IOException {
-        Map<String, String> menus = new HashMap<>();
+    public AddMenuUrlDto uploadMenu(MultipartFile file, String bucket, String restaurantId, String menuName) throws IOException {
+
+        AddMenuUrlDto addMenuUrlDto = new AddMenuUrlDto();
         Optional<Menu> menu = menuRepository.findByRestaurantIdAndMenuName(restaurantId, menuName);
-
-
+        Integer menuId = menuRepository.findMaxMenuId();
+        System.out.println(menuId);
         if (menu.isEmpty()) {
             String fileName = restaurantId + "_" + menuName + "_" + file.getOriginalFilename();
             ObjectMetadata metadata = new ObjectMetadata();
@@ -56,24 +59,26 @@ public class ImageServiceImpl implements ImageService {
             metadata.setContentLength(file.getSize());
             amazonS3Client.putObject(bucket, fileName, file.getInputStream(), metadata);
             URL url = amazonS3Client.getUrl(bucket, fileName);
-            menus.put("menuName", menuName);
-            menus.put("url", url.toString());
+            addMenuUrlDto.setUrl(url.toString());
+            addMenuUrlDto.setMenuName(menuName);
+            addMenuUrlDto.setRestaurantId(restaurantId);
             Menu menuInfo = new Menu();
             MenuImage menuImage = new MenuImage();
             MenuKey menuKey = new MenuKey();
             menuInfo.setRestaurantId(restaurantId);
+            menuInfo.setUrl(url.toString());
             menuInfo.setMenuName(menuName);
-            menuInfo.setUrl(menus.get("file"));
-            menuKey.setMenuId(menuInfo.getMenuId());
+            menuRepository.save(menuInfo);
+            menuKey.setMenuId(menuId+1);
             menuKey.setTime(LocalDateTime.now().toString());
             menuImage.setMenuKey(menuKey);
-            menuImage.setUrl(menus.get("file"));
-            menuRepository.save(menuInfo);
-            menus.put("menuId", menuInfo.getMenuId().toString());
-            return menus;
+            menuImage.setUrl(url.toString());
+            menuImageRepository.save(menuImage);
+
+            return addMenuUrlDto;
         } else {
-            menus.put("menu", null);
-            return menus;
+
+            return null;
         }
     }
 
