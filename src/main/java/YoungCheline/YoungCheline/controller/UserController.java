@@ -35,8 +35,8 @@ public class UserController {
             error.put("error", "회원가입 실패");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
-        error.put("error", "아이디 존재");
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        error.put("error", "아이디 중복");
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
     }
 
     @PostMapping("/register/send-email")
