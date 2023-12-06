@@ -27,7 +27,9 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<Object> register(@Valid @RequestBody RegisterDto registerDto) {
         Map<String, String> error = new HashMap<>();
-
+        System.out.println(registerDto.getUserName());
+        System.out.println(registerDto.getEmail());
+        System.out.println(registerDto.getPassword());
         if (userServiceImpl.validateDuplicateId(registerDto.getUserName())) {
             if (userServiceImpl.register(registerDto.getUserName(), registerDto.getPassword(), registerDto.getEmail())) {
                 return ResponseEntity.ok().body(registerDto);

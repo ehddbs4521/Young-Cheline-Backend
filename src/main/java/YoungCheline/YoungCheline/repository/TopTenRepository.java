@@ -14,6 +14,7 @@ import java.util.Optional;
 public interface TopTenRepository extends JpaRepository<TopTen, TopTenKey> {
     List<TopTen> findByTopTenKey_UserName(String userName);
     Optional<TopTen> findByTopTenKey_UserNameAndTopTenKey_Ranking(String userName, String ranking);
+    @Transactional
     void deleteByTopTenKey_UserName(String userName);
     @Transactional
     void deleteByTopTenKey_UserNameAndMenuId(String userName,Integer menuId);
