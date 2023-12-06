@@ -236,6 +236,6 @@ public class MyPageServiceImpl implements MyPageService {
     }
 
     public void deleteTop10List(TopTenDto topTenDto, String userName) {
-        topTenRepository.deleteByTopTenKey_UserName(userName);
+        topTenRepository.deleteByTopTenKey_UserNameAndMenuId(userName,topTenDto.getMenuId());
     }
 }

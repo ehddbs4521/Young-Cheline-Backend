@@ -82,8 +82,8 @@ public class MyPageController {
 
     @PostMapping("/delete-top10-list")
     public ResponseEntity<Object> deleteTop10List(@RequestBody TopTenDto topTenDto, Authentication authentication) {
-
-        Map<String, String> error = new HashMap<>();
+        System.out.println(topTenDto.getMenuId());
+        System.out.println(topTenDto.getMenuName());
         myPageServiceImpl.deleteTop10List(topTenDto, authentication.getName());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
