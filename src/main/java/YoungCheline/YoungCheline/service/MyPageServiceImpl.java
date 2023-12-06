@@ -169,6 +169,9 @@ public class MyPageServiceImpl implements MyPageService {
     public boolean sendTop10List(TopTenDto[] topTenDto, String userName) {
         long count = Arrays.stream(topTenDto).count();
         long distinctCount = Arrays.stream(topTenDto).toList().stream().map(TopTenDto::getMenuId).distinct().count();
+
+        System.out.println(count);
+        System.out.println(distinctCount);
         if (count != distinctCount) {
             return false;
         }
@@ -229,6 +232,10 @@ public class MyPageServiceImpl implements MyPageService {
     public void withdraw(String userName) {
         userRepository.deleteByUserName(userName);
         imageRepository.deleteByUserName(userName);
+        topTenRepository.deleteByTopTenKey_UserName(userName);
+    }
+
+    public void deleteTop10List(TopTenDto topTenDto, String userName) {
         topTenRepository.deleteByTopTenKey_UserName(userName);
     }
 }

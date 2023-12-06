@@ -70,6 +70,7 @@ public class MyPageController {
 
     @PostMapping("/top10-list")
     public ResponseEntity<Object> sendTop10List(@RequestBody TopTenDto[] topTenDto, Authentication authentication) {
+
         Map<String, String> error = new HashMap<>();
         error.put("error", "같은 메뉴 중복");
         boolean result = myPageServiceImpl.sendTop10List(topTenDto, authentication.getName());
@@ -79,6 +80,14 @@ public class MyPageController {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
     }
 
+    @PostMapping("/delete-top10-list")
+    public ResponseEntity<Object> deleteTop10List(@RequestBody TopTenDto topTenDto, Authentication authentication) {
+
+        Map<String, String> error = new HashMap<>();
+        myPageServiceImpl.deleteTop10List(topTenDto, authentication.getName());
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+    }
     @PostMapping("/withdraw")
     public ResponseEntity<Object> withdraw(Authentication authentication) {
         myPageServiceImpl.withdraw(authentication.getName());
