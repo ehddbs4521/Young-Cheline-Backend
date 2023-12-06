@@ -109,7 +109,11 @@ public class MainPageServiceImpl implements MainPageService {
 
     public RestaurantEvaluateDto[] showEvaluateBoxByKeyWord(String menuName, Integer size, Integer id, long total) {
 
-        Integer number = restaurantEvaluateRepository.findFirstByMenuNameContainingOrderByIdDesc(menuName).get().getId();
+        RestaurantEvaluate restaurantEvaluate = restaurantEvaluateRepository.findFirstByMenuNameContainingOrderByIdDesc(menuName).orElse(null);
+        if (restaurantEvaluate == null) {
+            return null;
+        }
+        Integer number = restaurantEvaluate.getId();
         if (size > total) {
             RestaurantEvaluateDto[] restaurantEvaluateDto = new RestaurantEvaluateDto[(int) total];
             PageRequest pageRequest = PageRequest.of(0, (int) total);

@@ -5,11 +5,13 @@ import YoungCheline.YoungCheline.entity.RestaurantEvaluate;
 import YoungCheline.YoungCheline.service.MainPageServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.mapping.Map;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 @Slf4j
@@ -30,9 +32,14 @@ public class MainPageController {
 
     @GetMapping("/search")
     public Object getSearch(@RequestParam("keyword") String menuName, @RequestParam(defaultValue = "0") Integer id, @RequestParam("size") Integer size) {
-        long total = mainPageService.totalDataCount(menuName);
 
+        long total = mainPageService.totalDataCount(menuName);
         RestaurantEvaluateDto[] restaurantEvaluateDto = mainPageService.showEvaluateBoxByKeyWord(menuName, size, id, total);
+
+        if (restaurantEvaluateDto == null) {
+            return "[]";
+        }
+
         return restaurantEvaluateDto;
     }
 
