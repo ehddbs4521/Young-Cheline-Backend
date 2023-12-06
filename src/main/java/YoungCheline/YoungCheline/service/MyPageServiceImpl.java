@@ -46,12 +46,15 @@ public class MyPageServiceImpl implements MyPageService {
 
     }
 
-    public boolean isSamePwEach(String userName, String changePw) {
+    public boolean isSamePwEach(String userName, String changePw,String nowPw) {
 
         User user = userRepository.findByUserName(userName)
                 .orElseThrow(
                         () -> new AppException(ErrorCode.BAD_REQUEST, "사용자를 찾을 수 없습니다.")
                 );
+        if (!encoder.matches(nowPw, user.getPassword())) {
+            return false;
+        }
         if (encoder.matches(changePw, user.getPassword())) {
             return true;
         }
@@ -237,5 +240,25 @@ public class MyPageServiceImpl implements MyPageService {
 
     public void deleteTop10List(TopTenDto topTenDto, String userName) {
         topTenRepository.deleteByTopTenKey_UserNameAndMenuId(userName,topTenDto.getMenuId());
+    }
+
+    public boolean checkEach(String nowPw, String userName) {
+
+        User user = userRepository.findByUserName(userName)
+                .orElseThrow(
+                        () -> new AppException(ErrorCode.BAD_REQUEST, "사용자를 찾을 수 없습니다.")
+                );
+        if (user.getTempPw() == null) {
+            if (!encoder.matches(nowPw, user.getPassword())) {
+                return false;
+            }
+            return true;
+        } else {
+            if(encoder.matches(nowPw,user.getTempPw())||encoder.matches(nowPw,user.getPassword())){
+                return true;
+            }
+            return false;
+        }
+
     }
 }

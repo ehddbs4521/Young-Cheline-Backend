@@ -34,10 +34,14 @@ public class MyPageController {
     @PostMapping("/change-pw")
     public ResponseEntity<Object> changePw(@RequestBody ChangePwDto changePwDto, Authentication authentication) {
         Map<String, String> error = new HashMap<>();
-
         String changePw = changePwDto.getChangepw();
+        String nowPw = changePwDto.getCurrentPw();
         String userName = authentication.getName();
-        if (myPageServiceImpl.isSamePwEach(userName, changePw)) {
+        if(!myPageServiceImpl.checkEach(nowPw,userName)){
+            error.put("error","현재 비밀번호를 재입력해주세요");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        }
+        if (myPageServiceImpl.isSamePwEach(userName, changePw,nowPw)) {
             error.put("error","기존 비밀번호와 동일");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }

@@ -11,7 +11,7 @@ import java.util.Map;
 public interface MyPageService {
 
     Map<String, String> changePw(String userName, String changePw);
-    boolean isSamePwEach(String userName, String changePw);
+    boolean isSamePwEach(String userName, String changePw,String currentPw);
     RestaurantEvaluateDto[] showEvaluateList(int size, int lastNumber, String userName);
     TopTenDto[] showTop10List(String userName);
     boolean sendTop10List(TopTenDto[] topTenDto, String userName);
