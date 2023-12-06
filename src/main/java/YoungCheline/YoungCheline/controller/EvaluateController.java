@@ -61,9 +61,6 @@ public class EvaluateController {
     @PostMapping("/menu/survey")
     public ResponseEntity<Optional> evaluateMenu(@RequestParam("file") MultipartFile file,@ModelAttribute SurveyDto surveyDto, Authentication authentication) throws IOException {
 
-        System.out.println(file.getOriginalFilename().toString());
-        System.out.println(surveyDto.getMood());
-
         evaluateServiceImpl.evaluateMenu(
                 surveyDto.getRestaurantId(),
                 surveyDto.getMenuId(),

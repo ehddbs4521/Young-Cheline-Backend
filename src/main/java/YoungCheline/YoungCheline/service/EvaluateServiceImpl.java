@@ -67,19 +67,23 @@ public class EvaluateServiceImpl implements EvaluateService {
 
     public void evaluateMenu(String restaurantId, Integer menuId, String taste, String price, List<String> mood, String cleaning, String plating, String service, MultipartFile file, String userName, String time, String bucket) throws IOException {
         Evaluate evaluate = new Evaluate();
+        String url;
         int number;
         Optional<Evaluate> firstByKeyUserNameOrderByIdDesc = evaluateRepository.findFirstByKey_UserNameOrderByIdDesc(userName);
         if (!firstByKeyUserNameOrderByIdDesc.isEmpty()) {
-            number = firstByKeyUserNameOrderByIdDesc.stream().map(Evaluate::getId).collect(Collectors.toList()).get(0);
+            number = firstByKeyUserNameOrderByIdDesc.get().getId();
         } else {
             number=0;
         }
+
+        log.info("number:{}", number);
         key.setMenuId(menuId);
         key.setTime(time);
         key.setUserName(userName);
 
         if (file!=null) {
-            imageService.uploadMenuImage(file, bucket, menuId, time);
+            url = imageService.uploadMenuImage(file, bucket, menuId, time);
+            evaluate.setUrl(url);
         }
 
         evaluate.setKey(key);

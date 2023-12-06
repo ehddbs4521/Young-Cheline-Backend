@@ -1,5 +1,6 @@
 package YoungCheline.YoungCheline.controller;
 
+import YoungCheline.YoungCheline.dto.ChangePwDto;
 import YoungCheline.YoungCheline.dto.RestaurantEvaluateDto;
 import YoungCheline.YoungCheline.dto.TopTenDto;
 import YoungCheline.YoungCheline.service.ImageServiceImpl;
@@ -31,10 +32,10 @@ public class MyPageController {
     final MyPageServiceImpl myPageServiceImpl;
 
     @PostMapping("/change-pw")
-    public ResponseEntity<Object> changePw(@RequestBody Map<String, String> changePwMap, Authentication authentication) {
+    public ResponseEntity<Object> changePw(@RequestBody ChangePwDto changePwDto, Authentication authentication) {
         Map<String, String> error = new HashMap<>();
 
-        String changePw = changePwMap.get("changePw");
+        String changePw = changePwDto.getChangepw();
         String userName = authentication.getName();
         if (myPageServiceImpl.isSamePwEach(userName, changePw)) {
             error.put("error","기존 비밀번호와 동일");
@@ -56,7 +57,7 @@ public class MyPageController {
     }
 
     @GetMapping("/evaluate-list")
-    public Object showEvaluateList(@RequestParam(defaultValue = "0") Integer id, @RequestParam("size") Integer size, Authentication authentication) {
+    public Object showEvaluateList(@RequestParam("size") Integer size,@RequestParam(defaultValue = "0") Integer id, Authentication authentication) {
         RestaurantEvaluateDto[] restaurantEvaluateDtos = myPageServiceImpl.showEvaluateList(size, id, authentication.getName());
         return restaurantEvaluateDtos;
     }

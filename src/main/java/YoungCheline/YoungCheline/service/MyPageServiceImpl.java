@@ -59,32 +59,36 @@ public class MyPageServiceImpl implements MyPageService {
     }
 
     public RestaurantEvaluateDto[] showEvaluateList(int size, int lastNumber, String userName) {
-
         Integer number = evaluateRepository.findFirstByKey_UserNameOrderByIdDesc(userName).get().getId();
-        log.info("number:{}",number);
+        List<Evaluate> evaluates = evaluateRepository.findAllByKey_UserName(userName);
+        int count= (int) evaluates.stream().count();
+        int total=size;
         if (lastNumber == 0) {
             lastNumber = number + 1;
         }
-        if (size >= lastNumber + 1) {
-            size=lastNumber-1;
+        if (size >count) {
+            size=count;
         }
 
         PageRequest pageRequest = PageRequest.of(0, size);
-        Page<Evaluate> page = evaluateRepository.findByKey_UserNameAndIdIsLessThanOrderByIdDesc(userName, lastNumber, pageRequest);
+        Page<Evaluate> page = evaluateRepository.findAllByKey_UserNameAndIdIsLessThanOrderByIdDesc(userName, lastNumber, pageRequest);
         List<Evaluate> content = page.getContent();
         RestaurantEvaluateDto[] restaurantEvaluateDto = new RestaurantEvaluateDto[size];
-        ResultDto resultDto = new ResultDto();
 
         for (int i = 0; i < size; i++) {
             restaurantEvaluateDto[i] = new RestaurantEvaluateDto();
-            if (lastNumber == 0) {
-                restaurantEvaluateDto[i].setId(number);
+            restaurantEvaluateDto[i].setId(content.get(i).getId());
+            if (total > count) {
+                restaurantEvaluateDto[i].setLast(true);
+            } else {
+                restaurantEvaluateDto[i].setLast(false);
             }
         }
 
         for (int i = 0; i < size; i++) {
 
             String menuName = menuRepository.findByRestaurantIdAndMenuId(content.get(i).getRestaurantId(), content.get(i).getKey().getMenuId()).get().getMenuName();
+            ResultDto resultDto = new ResultDto();
 
             List<String> mood = checkMood(content.get(i).getCouple(), content.get(i).getFamily(), content.get(i).getSolo(), content.get(i).getFriend(), content.get(i).getDrink());
             restaurantEvaluateDto[i].setRestaurantId(content.get(i).getRestaurantId());
@@ -104,7 +108,6 @@ public class MyPageServiceImpl implements MyPageService {
             } else {
                 restaurantEvaluateDto[i].setUrl(content.get(i).getUrl());
             }
-            restaurantEvaluateDto[i].setId(content.get(i).getId());
         }
 
         return restaurantEvaluateDto;

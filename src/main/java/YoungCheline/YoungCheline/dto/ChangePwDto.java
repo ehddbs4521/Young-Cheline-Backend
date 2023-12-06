@@ -12,6 +12,6 @@ import org.springframework.stereotype.Component;
 public class ChangePwDto {
 
     @NotBlank
-    private String currentpw;
+    private String currentPw;
     private String changepw;
 }

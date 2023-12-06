@@ -2,10 +2,7 @@ package YoungCheline.YoungCheline.service;
 
 import YoungCheline.YoungCheline.dto.AddMenuDto;
 import YoungCheline.YoungCheline.dto.AddMenuUrlDto;
-import YoungCheline.YoungCheline.entity.MenuImage;
-import YoungCheline.YoungCheline.entity.MenuKey;
-import YoungCheline.YoungCheline.entity.Profile;
-import YoungCheline.YoungCheline.entity.Menu;
+import YoungCheline.YoungCheline.entity.*;
 import YoungCheline.YoungCheline.repository.ImageRepository;
 import YoungCheline.YoungCheline.repository.MenuImageRepository;
 import YoungCheline.YoungCheline.repository.MenuRepository;
@@ -82,7 +79,8 @@ public class ImageServiceImpl implements ImageService {
         }
     }
 
-    public void uploadMenuImage(MultipartFile file,String bucket,Integer menuId,String time) throws IOException {
+    public String uploadMenuImage(MultipartFile file,String bucket,Integer menuId,String time) throws IOException {
+        Evaluate evaluate = new Evaluate();
         MenuImage menuImage = new MenuImage();
         MenuKey menuKey = new MenuKey();
         menuKey.setMenuId(menuId);
@@ -96,6 +94,7 @@ public class ImageServiceImpl implements ImageService {
         URL url = amazonS3Client.getUrl(bucket, fileName);
         menuImage.setUrl(url.toString());
         menuImageRepository.save(menuImage);
+        return url.toString();
     }
 
 

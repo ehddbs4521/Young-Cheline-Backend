@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Embeddable
 public class Key implements Serializable {
-    private String userName;
-    private Integer menuId;
-    private String time;
+    String userName;
+    Integer menuId;
+    String time;
 }

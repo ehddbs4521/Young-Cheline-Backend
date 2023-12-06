@@ -23,7 +23,7 @@ public class RecommendServiceImpl implements RecommendService {
     private final RecommendRepository recommendRepository;
     private final RestaurantEvaluateRepository restaurantEvaluateRepository;
     public boolean checkRecommend(String userName) {
-        long count = evaluateRepository.findByKey_UserName(userName).stream().count();
+        int count = evaluateRepository.findAllByKey_UserName(userName).size();
         if (count < 5) {
             return false;
         }
