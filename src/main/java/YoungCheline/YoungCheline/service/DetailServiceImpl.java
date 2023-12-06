@@ -57,7 +57,7 @@ public class DetailServiceImpl implements DetailService {
         return detailDto;
     }
 
-    private List<String> checkMood(String couple, String family, String solo, String friend, String drink) {
+    public List<String> checkMood(String couple, String family, String solo, String friend, String drink) {
         List<String> mood = new ArrayList<>();
         if (couple != null) {
             mood.add(couple);

@@ -72,7 +72,7 @@ public class EvaluateController {
                 surveyDto.getService(),
                 file,
                 authentication.getName(),
-                LocalDateTime.now().toString(),
+                LocalDateTime.now(),
                 bucket);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

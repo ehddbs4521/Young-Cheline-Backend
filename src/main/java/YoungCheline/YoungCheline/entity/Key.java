@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Setter
@@ -13,5 +14,5 @@ import java.util.List;
 public class Key implements Serializable {
     String userName;
     Integer menuId;
-    String time;
+    LocalDateTime time;
 }

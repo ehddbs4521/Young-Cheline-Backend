@@ -2,17 +2,20 @@ package YoungCheline.YoungCheline.service;
 
 import YoungCheline.YoungCheline.dto.GetMenuDto;
 import YoungCheline.YoungCheline.dto.KakaoMapDto;
-import YoungCheline.YoungCheline.entity.*;
-import YoungCheline.YoungCheline.repository.*;
+import YoungCheline.YoungCheline.entity.Evaluate;
+import YoungCheline.YoungCheline.entity.KakaoMap;
+import YoungCheline.YoungCheline.entity.Key;
+import YoungCheline.YoungCheline.entity.Menu;
+import YoungCheline.YoungCheline.repository.EvaluateRepository;
+import YoungCheline.YoungCheline.repository.KakoMapRepository;
+import YoungCheline.YoungCheline.repository.MenuRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -65,7 +68,7 @@ public class EvaluateServiceImpl implements EvaluateService {
         return getMenuDtos;
     }
 
-    public void evaluateMenu(String restaurantId, Integer menuId, String taste, String price, List<String> mood, String cleaning, String plating, String service, MultipartFile file, String userName, String time, String bucket) throws IOException {
+    public void evaluateMenu(String restaurantId, Integer menuId, String taste, String price, List<String> mood, String cleaning, String plating, String service, MultipartFile file, String userName, LocalDateTime time, String bucket) throws IOException {
         Evaluate evaluate = new Evaluate();
         String url;
         int number;

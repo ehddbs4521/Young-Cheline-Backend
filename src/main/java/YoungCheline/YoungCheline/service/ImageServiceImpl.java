@@ -67,7 +67,7 @@ public class ImageServiceImpl implements ImageService {
             menuInfo.setMenuName(menuName);
             menuRepository.save(menuInfo);
             menuKey.setMenuId(menuId+1);
-            menuKey.setTime(LocalDateTime.now().toString());
+            menuKey.setTime(LocalDateTime.now());
             menuImage.setMenuKey(menuKey);
             menuImage.setUrl(url.toString());
             menuImageRepository.save(menuImage);
@@ -79,7 +79,7 @@ public class ImageServiceImpl implements ImageService {
         }
     }
 
-    public String uploadMenuImage(MultipartFile file,String bucket,Integer menuId,String time) throws IOException {
+    public String uploadMenuImage(MultipartFile file,String bucket,Integer menuId,LocalDateTime time) throws IOException {
         Evaluate evaluate = new Evaluate();
         MenuImage menuImage = new MenuImage();
         MenuKey menuKey = new MenuKey();
