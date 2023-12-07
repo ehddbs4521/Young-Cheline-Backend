@@ -36,7 +36,7 @@ public class AuthenticationConfig {
                 .and() // CORS 설정과 기존 구성 분리
                 .authorizeHttpRequests(requests -> {
                     requests.requestMatchers("/register/**", "/login/**","/home/**","/me/**").permitAll();
-                    requests.requestMatchers("/mypage/**", "/evaluate/**","/recommend/**","/details/**").authenticated();
+                    requests.requestMatchers("/mypage/**", "/evaluate/**","/recommend/**","/detail/**").authenticated();
                 })
                 .sessionManagement(
                         sessionManagement ->
