@@ -21,7 +21,7 @@ public class DetailServiceImpl implements DetailService {
     private final RestaurantEvaluateRepository restaurantEvaluateRepository;
     public DetailDto getDetail(Integer menuId) {
         DetailDto detailDto = new DetailDto();
-        Statistic[] statistic = new Statistic[3];
+        Statistic[] statistic = new Statistic[2];
         ResultDto resultDto = new ResultDto();
         Detail detail = detailRepository.findByMenuId(menuId).get();
         RestaurantEvaluate restaurantEvaluate = restaurantEvaluateRepository.findByMenuId(menuId).get();
@@ -42,16 +42,13 @@ public class DetailServiceImpl implements DetailService {
         resultDto.setService(restaurantEvaluate.getService());
         detailDto.setResultDto(resultDto);
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {
             statistic[i] = new Statistic();
         }
         statistic[0].setAvg(detail.getAvg1());
         statistic[0].setUrl(detail.getUrl1());
         statistic[1].setAvg(detail.getAvg2());
         statistic[1].setUrl(detail.getUrl2());
-        statistic[2].setAvg(detail.getAvg3());
-        statistic[2].setUrl(detail.getUrl3());
-
         detailDto.setStatistic(statistic);
 
         return detailDto;

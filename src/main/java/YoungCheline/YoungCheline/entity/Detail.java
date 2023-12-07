@@ -15,10 +15,8 @@ public class Detail {
     Integer menuId;
     Integer avg1;
     Integer avg2;
-    Integer avg3;
     String url1;
     String url2;
-    String url3;
 
 
 }

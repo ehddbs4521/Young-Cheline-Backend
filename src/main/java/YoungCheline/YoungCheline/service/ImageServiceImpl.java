@@ -80,7 +80,6 @@ public class ImageServiceImpl implements ImageService {
     }
 
     public String uploadMenuImage(MultipartFile file,String bucket,Integer menuId,LocalDateTime time) throws IOException {
-        Evaluate evaluate = new Evaluate();
         MenuImage menuImage = new MenuImage();
         MenuKey menuKey = new MenuKey();
         menuKey.setMenuId(menuId);

@@ -91,3 +91,4 @@ public class RecommendServiceImpl implements RecommendService {
         return mood;
     }
 }
+
