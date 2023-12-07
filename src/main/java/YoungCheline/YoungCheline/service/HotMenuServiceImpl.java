@@ -24,11 +24,11 @@ public class HotMenuServiceImpl implements HotMenuService {
     public RecommendDto[] getHotMenu() {
         LocalDate start=LocalDate.now();
         LocalDate end = start.minusDays(1);
-        List<HotMenu> content = hotMenuRepository.findByHotMenuKey_TimeBetween(start,end).stream().collect(Collectors.toList());
+        List<HotMenu> content = hotMenuRepository.findAllByHotMenuKey_TimeBetween(end,start);
         RecommendDto[] recommendDto = new RecommendDto[content.size()];
-        ResultDto resultDto = new ResultDto();
 
         for (int i = 0; i < content.size(); i++) {
+            ResultDto resultDto = new ResultDto();
             recommendDto[i] = new RecommendDto();
             recommendDto[i].setMenuId(content.get(i).getHotMenuKey().getMenuId());
             Integer menuId = content.get(i).getHotMenuKey().getMenuId();

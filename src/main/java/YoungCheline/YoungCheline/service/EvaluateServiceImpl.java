@@ -36,7 +36,7 @@ public class EvaluateServiceImpl implements EvaluateService {
         Optional<KakaoMap> map = kakoMapRepository.findByRestaurantId(kakaoMapDto.getRestaurantId());
         if (map.isEmpty()) {
             KakaoMap kakaoMap = new KakaoMap();
-
+            System.out.println(111111);
             kakaoMap.setRestaurantId(kakaoMapDto.getRestaurantId());
             kakaoMap.setPlace_name(kakaoMapDto.getPlace_name());
             kakaoMap.setRoad_address_name(kakaoMapDto.getRoad_address_name());

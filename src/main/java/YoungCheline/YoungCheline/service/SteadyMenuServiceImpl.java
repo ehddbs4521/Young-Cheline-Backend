@@ -24,11 +24,11 @@ public class SteadyMenuServiceImpl implements SteadyMenuService {
     public RecommendDto[] getSteadyMenu() {
         LocalDate start=LocalDate.now();
         LocalDate end = start.minusMonths(1);
-        List<SteadyMenu> content = steadyMenuRepository.findBySteadyMenuKey_TimeBetween(start,end).stream().collect(Collectors.toList());
+        List<SteadyMenu> content = steadyMenuRepository.findAllBySteadyMenuKey_TimeBetween(end, start);
         RecommendDto[] recommendDto = new RecommendDto[content.size()];
-        ResultDto resultDto = new ResultDto();
 
         for (int i = 0; i < content.size(); i++) {
+            ResultDto resultDto = new ResultDto();
             recommendDto[i] = new RecommendDto();
             recommendDto[i].setMenuId(content.get(i).getSteadyMenuKey().getMenuId());
             Integer menuId = content.get(i).getSteadyMenuKey().getMenuId();

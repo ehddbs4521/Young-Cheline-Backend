@@ -8,13 +8,16 @@ import YoungCheline.YoungCheline.repository.EvaluateRepository;
 import YoungCheline.YoungCheline.repository.RecommendRepository;
 import YoungCheline.YoungCheline.repository.RestaurantEvaluateRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class RecommendServiceImpl implements RecommendService {
@@ -24,6 +27,7 @@ public class RecommendServiceImpl implements RecommendService {
     private final RestaurantEvaluateRepository restaurantEvaluateRepository;
     public boolean checkRecommend(String userName) {
         int count = evaluateRepository.findAllByKey_UserName(userName).size();
+        System.out.println(count);
         if (count < 5) {
             return false;
         }
@@ -33,17 +37,17 @@ public class RecommendServiceImpl implements RecommendService {
     public RecommendDto[] getRecommend(String userName) {
         LocalDate start=LocalDate.now();
         LocalDate end = start.minusDays(7);
-        List<Recommend> content = recommendRepository.findByRecommendKey_UserNameAndRecommendKey_TimeBetween(userName,start,end).stream().collect(Collectors.toList());
+        List<Recommend> content = recommendRepository.findAllByRecommendKey_UserNameAndRecommendKey_TimeBetween(userName,end,start);
+
         RecommendDto[] recommendDto = new RecommendDto[content.size()];
-        ResultDto resultDto = new ResultDto();
 
         for (int i = 0; i < content.size(); i++) {
+            ResultDto resultDto = new ResultDto();
             recommendDto[i] = new RecommendDto();
             recommendDto[i].setUserName(userName);
             recommendDto[i].setMenuId(content.get(i).getRecommendKey().getMenuId());
             Integer menuId = content.get(i).getRecommendKey().getMenuId();
             recommendDto[i].setMenuId(menuId);
-
             RestaurantEvaluate restaurantEvaluate = restaurantEvaluateRepository.findByMenuId(menuId).get();
             recommendDto[i].setRestaurantId(restaurantEvaluate.getRestaurantId());
             recommendDto[i].setMenuName(restaurantEvaluate.getMenuName());

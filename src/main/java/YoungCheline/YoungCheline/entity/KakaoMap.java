@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 public class KakaoMap {
 
     @Id
-    private Long id;
     private String restaurantId;
     private String place_name;
     private String road_address_name;
