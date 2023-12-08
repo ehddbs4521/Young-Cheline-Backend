@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
 
     public boolean sendEmail(String email) throws MessagingException {
         Optional<User> userEmail = userRepository.findByEmail(email);
-        if (userEmail.isEmpty()) {
+        if (!userEmail.get().isActive()) {
             emailUtil.sendEmail(email);
             User user = new User();
             user.setEmail(email);

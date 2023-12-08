@@ -114,7 +114,7 @@ public class EvaluateServiceImpl implements EvaluateService {
             }
         }
         evaluate.setId(number + 1);
-
+        log.info("menuName:{}",evaluate.getKey().getMenuId());
         evaluateRepository.save(evaluate);
 
 
