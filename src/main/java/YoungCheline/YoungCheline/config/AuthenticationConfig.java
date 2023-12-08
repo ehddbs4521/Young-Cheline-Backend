@@ -32,8 +32,8 @@ public class AuthenticationConfig {
         return httpSecurity
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors() // 이 부분 추가
-                .and() // CORS 설정과 기존 구성 분리
+                .cors()
+                .and()
                 .authorizeHttpRequests(requests -> {
                     requests.requestMatchers("/register/**", "/login/**","/home/**","/me/**","/detail/**").permitAll();
                     requests.requestMatchers("/mypage/**", "/evaluate/**","/recommend/**").authenticated();
@@ -49,10 +49,10 @@ public class AuthenticationConfig {
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.addAllowedOrigin("http://localhost:3000"); // 허용할 오리진 설정
-        corsConfiguration.addAllowedMethod("*"); // 허용할 HTTP 메서드 설정
-        corsConfiguration.addAllowedHeader("*"); // 허용할 헤더 설정
-        corsConfiguration.setAllowCredentials(true); // 자격 증명 허용
+        corsConfiguration.addAllowedOrigin("http://localhost:3000");
+        corsConfiguration.addAllowedMethod("*");
+        corsConfiguration.addAllowedHeader("*");
+        corsConfiguration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfiguration);
